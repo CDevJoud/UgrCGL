@@ -27,11 +27,11 @@
     <ClInclude Include="UgrCGL\include\RenderTarget.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UgrCGL\include\Vector.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="UgrCGL\src\UgrCGL.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UgrCGL\src\ConsoleWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

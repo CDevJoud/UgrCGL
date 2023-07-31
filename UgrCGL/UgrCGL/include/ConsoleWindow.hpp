@@ -4,11 +4,11 @@
 
 namespace ugr
 {
-	class UGRCGL_API ConsoleWindow
+	class UGRCGL_API ConsoleWindow : public RenderTarget
 	{
 	public:
 		/// <summary>
-		/// Initializes the ConsoleWindow by retrievingand storing its memory address for future use.
+		/// Initializes the ConsoleWindow by retrieving and storing its memory address for future use.
 		///	This function ensures seamless interaction with the ConsoleWindow throughout the application's lifecycle.
 		///	By obtaining the memory address, we enable efficient access to the ConsoleWindow's properties and data.
 		///	Feel free to call this function at the beginning of your application to set up the ConsoleWindow environment.
@@ -22,7 +22,7 @@ namespace ugr
 		/// Use this function to create a customized Console buffer window with the provided size.
 		/// This allows for a more tailored and interactive user experience within the Console environment.
 		/// </remarks>
-		VOID CreateConsoleBufferWindow(COORD size);
+		VOID CreateConsoleBufferWindow(Vector2i size);
 		/// <summary>
 		/// Displays the buffer content in the Console Window.
 		/// </summary>
@@ -33,8 +33,9 @@ namespace ugr
 		VOID Display();
 	private:
 		HANDLE m_hConsole = NULL;
-		CHAR_INFO* m_buffer = NULL;
-		COORD m_screen = { 0 };
-		SMALL_RECT m_rect = { 0 };
+		PCharPixel m_buffer = NULL;
+		Vector2i m_screen;
+		ShortRect m_rect = { 0 };
+		RenderElements re;
 	};
 }

@@ -1,14 +1,14 @@
 #pragma once
-#include <Windows.h>
 #include <Register.hpp>
+#include <Vector.hpp>
 namespace ugr
-{
+{	
 	struct UGRCGL_API RenderElements
 	{
 		HANDLE hConsole = NULL;
-		CHAR_INFO* buffer = NULL;
-		COORD screen{};
-		SMALL_RECT rect{};
+		PCharPixel buffer = NULL;
+		Vector2i screen{};
+		ShortRect rect{};
 	};
 	class UGRCGL_API RenderTarget
 	{
@@ -33,7 +33,7 @@ namespace ugr
 		/// This function is used to draw a single pixel on the screen buffer at the specified position,
 		/// using the provided character and color.
 		/// </remarks>
-		VOID SetPixel(COORD pos, SHORT c = 0x2588, BYTE color = 0x0F);
+		VOID SetPixel(Vector2i pos, SHORT c = 0x2588, Color color = 0x0F);
 	private:
 		RenderElements re;
 	};

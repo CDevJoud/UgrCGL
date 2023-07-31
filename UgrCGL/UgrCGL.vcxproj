@@ -23,11 +23,11 @@
     <ClInclude Include="UgrCGL\include\ConsoleWindow.hpp" />
     <ClInclude Include="UgrCGL\include\UgrCGL.hpp" />
     <ClInclude Include="UgrCGL\include\Register.hpp" />
+    <ClInclude Include="UgrCGL\include\Vector.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UgrCGL\src\RenderTarget.cpp" />
     <ClCompile Include="UgrCGL\src\ConsoleWindow.cpp" />
-    <ClCompile Include="UgrCGL\src\UgrCGL.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
