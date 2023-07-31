@@ -1,6 +1,6 @@
 #pragma once
-#include <Windows.h>
 #include <Register.hpp>
+#include <RenderTarget.hpp>
 
 namespace ugr
 {

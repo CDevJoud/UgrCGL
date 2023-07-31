@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML><HEAD></HEAD><BODY>
+<OBJECT type="text/site properties">
+<param name="FrameName" value="right">
+</OBJECT>
+<UL>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Namespaces"><param name="Local" value="namespaces.html"><param name="ImageNumber" value="1"></OBJECT>
+  <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Namespace List"><param name="Local" value="namespaces.html#top"><param name="ImageNumber" value="1"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="ugr"><param name="Local" value="namespaceugr.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="ConsoleWindow"><param name="Local" value="classugr_1_1_console_window.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="CreateConsoleBufferWindow"><param name="Local" value="classugr_1_1_console_window.html#a809fe63f17a859b16c7239e5a2f1486b"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="Display"><param name="Local" value="classugr_1_1_console_window.html#a9b0ecd5cf85c2f44619e8856f36e6a94"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="InitConsoleWindow"><param name="Local" value="classugr_1_1_console_window.html#ab6ed1b39b8c9604161c1e9906fdea881"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="RenderElements"><param name="Local" value="structugr_1_1_render_elements.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="buffer"><param name="Local" value="structugr_1_1_render_elements.html#a8e3c65745d2c648a84b1de7b3ad0d3d4"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="hConsole"><param name="Local" value="structugr_1_1_render_elements.html#a19a533f1d49904113fbfe23f9461dee5"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="rect"><param name="Local" value="structugr_1_1_render_elements.html#a147fe1fb76703712c24b3ab365bf41dc"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="screen"><param name="Local" value="structugr_1_1_render_elements.html#a32a49e936092ee951f5e312fc8d38cb2"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="RenderTarget"><param name="Local" value="classugr_1_1_render_target.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="InitRenderTarget"><param name="Local" value="classugr_1_1_render_target.html#a8654a0179d3476e614694ed197742b7c"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="SetPixel"><param name="Local" value="classugr_1_1_render_target.html#a7be9768fffcf9536151d7fafdd1e37fb"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      </UL>
+    </UL>
+  </UL>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Classes"><param name="Local" value="annotated.html"><param name="ImageNumber" value="1"></OBJECT>
+  <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Class List"><param name="Local" value="annotated.html#top"><param name="ImageNumber" value="1"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="ugr"><param name="Local" value="namespaceugr.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="ConsoleWindow"><param name="Local" value="classugr_1_1_console_window.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="CreateConsoleBufferWindow"><param name="Local" value="classugr_1_1_console_window.html#a809fe63f17a859b16c7239e5a2f1486b"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="Display"><param name="Local" value="classugr_1_1_console_window.html#a9b0ecd5cf85c2f44619e8856f36e6a94"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="InitConsoleWindow"><param name="Local" value="classugr_1_1_console_window.html#ab6ed1b39b8c9604161c1e9906fdea881"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="RenderElements"><param name="Local" value="structugr_1_1_render_elements.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="buffer"><param name="Local" value="structugr_1_1_render_elements.html#a8e3c65745d2c648a84b1de7b3ad0d3d4"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="hConsole"><param name="Local" value="structugr_1_1_render_elements.html#a19a533f1d49904113fbfe23f9461dee5"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="rect"><param name="Local" value="structugr_1_1_render_elements.html#a147fe1fb76703712c24b3ab365bf41dc"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="screen"><param name="Local" value="structugr_1_1_render_elements.html#a32a49e936092ee951f5e312fc8d38cb2"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="RenderTarget"><param name="Local" value="classugr_1_1_render_target.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="InitRenderTarget"><param name="Local" value="classugr_1_1_render_target.html#a8654a0179d3476e614694ed197742b7c"><param name="ImageNumber" value="11"></OBJECT>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="SetPixel"><param name="Local" value="classugr_1_1_render_target.html#a7be9768fffcf9536151d7fafdd1e37fb"><param name="ImageNumber" value="11"></OBJECT>
+        </UL>
+      </UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Class Index"><param name="Local" value="classes.html"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Class Members"><param name="Local" value="functions.html"><param name="ImageNumber" value="1"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="All"><param name="Local" value="functions.html#top"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="Functions"><param name="Local" value="functions_func.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="Variables"><param name="Local" value="functions_vars.html"><param name="ImageNumber" value="11"></OBJECT>
+    </UL>
+  </UL>
+<LI><OBJECT type="text/sitemap"><param name="Name" value="Files"><param name="Local" value="files.html"><param name="ImageNumber" value="1"></OBJECT>
+  <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="File List"><param name="Local" value="files.html#top"><param name="ImageNumber" value="1"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="UgrCGL"><param name="Local" value="dir_b63fc36898e728fd040b16d9a8f04009.html"><param name="ImageNumber" value="1"></OBJECT>
+      <UL>
+      <LI><OBJECT type="text/sitemap"><param name="Name" value="UgrCGL"><param name="Local" value="dir_4ac4d0135a2a2b2d6693140876e8c467.html"><param name="ImageNumber" value="1"></OBJECT>
+        <UL>
+        <LI><OBJECT type="text/sitemap"><param name="Name" value="include"><param name="Local" value="dir_9eafee92265112a40ad0e9008e8b0447.html"><param name="ImageNumber" value="1"></OBJECT>
+          <UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="ConsoleWindow.hpp"><param name="Local" value="_console_window_8hpp.html"><param name="ImageNumber" value="1"></OBJECT>
+            <UL>
+            <LI><OBJECT type="text/sitemap"><param name="Name" value="ugr::ConsoleWindow"><param name="Local" value="classugr_1_1_console_window.html"><param name="ImageNumber" value="1"></OBJECT>
+              <UL>
+              <LI><OBJECT type="text/sitemap"><param name="Name" value="CreateConsoleBufferWindow"><param name="Local" value="classugr_1_1_console_window.html#a809fe63f17a859b16c7239e5a2f1486b"><param name="ImageNumber" value="11"></OBJECT>
+              <LI><OBJECT type="text/sitemap"><param name="Name" value="Display"><param name="Local" value="classugr_1_1_console_window.html#a9b0ecd5cf85c2f44619e8856f36e6a94"><param name="ImageNumber" value="11"></OBJECT>
+              <LI><OBJECT type="text/sitemap"><param name="Name" value="InitConsoleWindow"><param name="Local" value="classugr_1_1_console_window.html#ab6ed1b39b8c9604161c1e9906fdea881"><param name="ImageNumber" value="11"></OBJECT>
+              </UL>
+            </UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="Register.hpp"><param name="Local" value="_register_8hpp.html"><param name="ImageNumber" value="1"></OBJECT>
+            <UL>
+            <LI><OBJECT type="text/sitemap"><param name="Name" value="UGRCGL_API"><param name="Local" value="_register_8hpp.html#a25143d5d3ef20ccf989be07c28574c5c"><param name="ImageNumber" value="11"></OBJECT>
+            </UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="RenderTarget.hpp"><param name="Local" value="_render_target_8hpp.html"><param name="ImageNumber" value="1"></OBJECT>
+            <UL>
+            <LI><OBJECT type="text/sitemap"><param name="Name" value="ugr::RenderElements"><param name="Local" value="structugr_1_1_render_elements.html"><param name="ImageNumber" value="1"></OBJECT>
+              <UL>
+              <LI><OBJECT type="text/sitemap"><param name="Name" value="buffer"><param name="Local" value="structugr_1_1_render_elements.html#a8e3c65745d2c648a84b1de7b3ad0d3d4"><param name="ImageNumber" value="11"></OBJECT>
+              <LI><OBJECT type="text/sitemap"><param name="Name" value="hConsole"><param name="Local" value="structugr_1_1_render_elements.html#a19a533f1d49904113fbfe23f9461dee5"><param name="ImageNumber" value="11"></OBJECT>
+              <LI><OBJECT type="text/sitemap"><param name="Name" value="rect"><param name="Local" value="structugr_1_1_render_elements.html#a147fe1fb76703712c24b3ab365bf41dc"><param name="ImageNumber" value="11"></OBJECT>
+              <LI><OBJECT type="text/sitemap"><param name="Name" value="screen"><param name="Local" value="structugr_1_1_render_elements.html#a32a49e936092ee951f5e312fc8d38cb2"><param name="ImageNumber" value="11"></OBJECT>
+              </UL>
+            <LI><OBJECT type="text/sitemap"><param name="Name" value="ugr::RenderTarget"><param name="Local" value="classugr_1_1_render_target.html"><param name="ImageNumber" value="1"></OBJECT>
+              <UL>
+              <LI><OBJECT type="text/sitemap"><param name="Name" value="InitRenderTarget"><param name="Local" value="classugr_1_1_render_target.html#a8654a0179d3476e614694ed197742b7c"><param name="ImageNumber" value="11"></OBJECT>
+              <LI><OBJECT type="text/sitemap"><param name="Name" value="SetPixel"><param name="Local" value="classugr_1_1_render_target.html#a7be9768fffcf9536151d7fafdd1e37fb"><param name="ImageNumber" value="11"></OBJECT>
+              </UL>
+            </UL>
+          <LI><OBJECT type="text/sitemap"><param name="Name" value="UgrCGL.hpp"><param name="Local" value="_ugr_c_g_l_8hpp.html"><param name="ImageNumber" value="11"></OBJECT>
+          </UL>
+        </UL>
+      </UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="File Members"><param name="Local" value="globals.html"><param name="ImageNumber" value="1"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="All"><param name="Local" value="globals.html#top"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="Macros"><param name="Local" value="globals_defs.html"><param name="ImageNumber" value="11"></OBJECT>
+    </UL>
+  </UL>
+</UL>
+</BODY>
+</HTML>

@@ -19,11 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="UgrCGL\include\RenderTarget.hpp" />
     <ClInclude Include="UgrCGL\include\ConsoleWindow.hpp" />
     <ClInclude Include="UgrCGL\include\UgrCGL.hpp" />
     <ClInclude Include="UgrCGL\include\Register.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="UgrCGL\src\RenderTarget.cpp" />
     <ClCompile Include="UgrCGL\src\ConsoleWindow.cpp" />
     <ClCompile Include="UgrCGL\src\UgrCGL.cpp" />
   </ItemGroup>
