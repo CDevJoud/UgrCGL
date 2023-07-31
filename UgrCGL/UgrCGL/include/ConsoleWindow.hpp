@@ -8,19 +8,28 @@ namespace ugr
 	{
 	public:
 		/// <summary>
-		/// This function will Init the ConsoleWindow by getting the memory address
-		/// of the ConsoleWindow and store it for later use
+		/// Initializes the ConsoleWindow by retrievingand storing its memory address for future use.
+		///	This function ensures seamless interaction with the ConsoleWindow throughout the application's lifecycle.
+		///	By obtaining the memory address, we enable efficient access to the ConsoleWindow's properties and data.
+		///	Feel free to call this function at the beginning of your application to set up the ConsoleWindow environment.
 		/// </summary>
 		VOID InitConsoleWindow();
 		/// <summary>
-		/// This function will Create the Console buffer window with the specified size
+		/// Creates a new Console buffer window with the specified size.
 		/// </summary>
-		/// <param name="size"></param>
+		/// <param name="size">The desired size of the Console buffer window.</param>
+		/// <remarks>
+		/// Use this function to create a customized Console buffer window with the provided size.
+		/// This allows for a more tailored and interactive user experience within the Console environment.
+		/// </remarks>
 		VOID CreateConsoleBufferWindow(COORD size);
-
 		/// <summary>
-		/// This function will display the buffer to the Consolw Window
+		/// Displays the buffer content in the Console Window.
 		/// </summary>
+		/// <remarks>
+		/// Use this function to render and present the contents of the buffer on the Console Window.
+		/// Once called, the updated buffer content will be visible to the user in the Console interface.
+		/// </remarks>
 		VOID Display();
 	private:
 		HANDLE m_hConsole = NULL;
