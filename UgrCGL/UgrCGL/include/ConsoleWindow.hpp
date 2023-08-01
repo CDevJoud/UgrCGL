@@ -1,5 +1,4 @@
 #pragma once
-#include <Register.hpp>
 #include <RenderTarget.hpp>
 
 namespace ugr
