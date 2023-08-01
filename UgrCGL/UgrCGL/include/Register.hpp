@@ -20,7 +20,7 @@ namespace ugr
 			char   AsciiChar;
 		} Char;
 		unsigned short Color;
-	} CharPixel, * PCharPixel;
+	} CharPixel, * PCharPixel, *ScreenBuffer;
 	typedef struct _s_ShortRect {
 		SHORT x;
 		SHORT y;
