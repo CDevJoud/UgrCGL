@@ -1,3 +1,17 @@
+/*****************************************************************//**
+ * \file   RenderTarget.hpp
+ * \copyright (C) MIT License 2022-2023 Joud Kandeel
+ *
+ * \author CDevJoud
+ * \date   02/Aug/2023
+ *********************************************************************/
+/*****************************************************************//**
+ * \file   ConsoleWindow.hpp
+ * \copyright (C) MIT License 2022-2023 Joud Kandeel
+ *
+ * \author CDevJoud
+ * \date   02/Aug/2023
+ *********************************************************************/
 #pragma once
 #define VOID void
 #define NULL 0
@@ -11,6 +25,7 @@ namespace ugr
 {
 	typedef void* HANDLE;
 	typedef short SHORT;
+	typedef short *PSHORT;
 	typedef short CharSurface;
 	typedef unsigned char Color;
 	typedef char CHAR;
