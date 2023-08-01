@@ -14,4 +14,11 @@ namespace ugr
 			this->re.buffer[pos.y * this->re.screen.x + pos.x].Color = 0x0F;
 		}
 	}
+	VOID RenderTarget::CalculateClipOn(Vector2i& i)
+	{
+		if (i.x < 0) i.x = 0;
+		if (i.x > this->re.screen.x) i.x = this->re.screen.x;
+		if (i.y < 0) i.y = 0;
+		if (i.y > this->re.screen.y) i.y = this->re.screen.y;
+	}
 }
