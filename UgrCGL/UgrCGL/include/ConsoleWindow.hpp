@@ -27,6 +27,47 @@
 
 namespace ugr
 {
+	/*! Class that is inherited using public inheritance
+	* 
+	* \class ConsoleWindow
+	* \brief This class is the heart of the application, allowing you to configure your Console Window and perform Graphics on it.
+	*
+	* This class provides functionality to create and manage a console window for rendering graphics.
+	*
+	* **Usage Example:**
+	* \code{.cpp}
+	* #include <UgrCGL.hpp>
+	*
+	* class Demo : public ugr::ConsoleWindow
+	* {
+	* public:
+	*     Demo()
+	*     {
+	*         this->InitConsoleWindow();
+	*         this->CreateConsoleBufferWindow(ugr::Vector2i(240, 75), ugr::Vector2i(8, 14));
+	*     }
+	*
+	*     int run()
+	*     {
+	*         while (true)
+	*         {
+	*			   this->ClearScreen();
+	* 			   
+	*			   //Render Function Here!
+	* 
+	*             this->Display();
+	*         }
+	*         return 0;
+	*     }
+	* };
+	*
+	* int main(int argc, char** argv)
+	* {
+	*     Demo d;
+	*     return d.run();
+	* }
+	* \endcode
+	*/
 	class UGRCGL_API ConsoleWindow : public RenderTarget
 	{
 	public:
@@ -54,6 +95,24 @@ namespace ugr
 		/// Once called, the updated buffer content will be visible to the user in the Console interface.
 		/// </remarks>
 		VOID Display();
+		/// <summary>
+		/// Clears the screen buffer, preparing it for rendering the next frame.
+		/// </summary>
+		/// <remarks>
+		/// Call this function at the beginning of every frame to clear the screen and avoid viewing artifacts from the previous frame.
+		/// </remarks>
+		/// <param name="c">The character used to fill the screen. (Default: 0x2588)</param>
+		/// <param name="color">The color applied to the screen. (Default: 0x00)</param>
+		VOID ClearScreen(SHORT c = 0x2588, Color color = 0x00);
+		/// <summary>
+		/// Releases all the memory that the class has stored.
+		/// </summary>
+		/// <remarks>
+		/// Call this function once to release all the memory used by the class. 
+		/// \note After calling this function, avoid invoking other functions, like RenderLine, SetPixel etc, 
+		/// to prevent potential crashes in your program.
+		/// </remarks>
+		VOID ShutDown();
 	private:
 		HANDLE m_hConsole = NULL;
 		HANDLE m_hConsoleIn = NULL;

@@ -22,20 +22,37 @@
 // |  SOFTWARE.																		 |
 // O---------------------------------------------------------------------------------O
 
-
-#include <Windows.h>
 #include <UgrCGL.hpp>
+
+class Demo : public ugr::ConsoleWindow
+{
+public:
+	Demo() : rect({ 0 })
+	{
+		this->InitConsoleWindow();
+		this->CreateConsoleBufferWindow(ugr::Vector2i(240, 75), ugr::Vector2i(8, 14));
+		rect.x = rect.y = 20;
+		rect.width = rect.height = 50;
+		this->p[0] = ugr::Vector2i(0, 73);
+		this->p[1] = ugr::Vector2i(120, 0);
+		this->p[2] = ugr::Vector2i(238, 73);
+	}
+	int run()
+	{
+		while (true)
+		{
+			this->RenderTriangle(this->p[0], this->p[1], this->p[2]);
+			this->Display();
+		}
+		return 0;
+	}
+private:
+	ugr::Vector2i p[3];
+	ugr::ShortRect rect;
+};
 
 int main(int argv, char** argc)
 {
-	ugr::ConsoleWindow CW;
-	CW.InitConsoleWindow();
-	CW.CreateConsoleBufferWindow(ugr::Vector2i(128, 64));
-	CW.SetPixel({10, 20 });
-	ugr::ShortRect rect;
-	rect.x = rect.y = 20;
-	rect.width = rect.height = 40;
-	CW.Fill(rect);
-	CW.Display();
-	return 0;
+	Demo d;
+	return d.run();
 }

@@ -12,6 +12,20 @@
  * \author CDevJoud
  * \date   02/Aug/2023
  *********************************************************************/
+ /*****************************************************************//**
+  * \file   Vector.hpp
+  * \copyright (C) MIT License 2022-2023 Joud Kandeel
+  *
+  * \author CDevJoud
+  * \date   02/Aug/2023
+  *********************************************************************/
+  /*****************************************************************//**
+   * \file   UgrCGL.hpp
+   * \copyright (C) MIT License 2022-2023 Joud Kandeel
+   *
+   * \author CDevJoud
+   * \date   02/Aug/2023
+   *********************************************************************/
 #pragma once
 #define VOID void
 #define NULL 0
@@ -23,6 +37,9 @@
 
 namespace ugr
 {
+	typedef int INT;
+	typedef float FLOAT;
+	typedef float *VAO;
 	typedef void* HANDLE;
 	typedef short SHORT;
 	typedef short *PSHORT;
