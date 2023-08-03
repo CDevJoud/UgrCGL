@@ -29,6 +29,41 @@
 #pragma once
 #define VOID void
 #define NULL 0
+
+//RenderTarget Flags
+
+/// This flag enable new line detection for the \link RenderText() \endlink function allows it to detect if there was a new line character.
+/// when it finds one it will jump into a new line.
+/// **Usage Example:**
+/// \code{.cpp}
+/// this->RenderText(ugr::Vector2i(10, 10), "Hello World\nThis is a new line!", 0x0F, RT_ENABLE_NEWLINE_DETECTION);
+/// \endcode
+/// 
+/// \see RenderText()
+/// 
+#define RT_ENABLE_NEWLINE_DETECTION 0x01
+
+///
+/// This flag enables correction for Unicode characters when input as a string. The \ref RenderText() function can detect if a Unicode character is present and correct its byte representation.
+///
+/// For example, when attempting to render the character "ä", the input bytes might be 0xEF 0xFF. With this flag enabled, it will be corrected to 0xEF 0x00.
+///
+/// **Usage Example:**
+/// \code{.cpp}
+/// this->RenderText(ugr::Vector2i(10, 10), "Hallå där!", 0x0F, RT_ENABLE_CORRECT_CONVERT);
+/// \endcode
+///
+/// \see \ref RenderText()
+///
+/// \def RT_ENABLE_CORRECT_CONVERT
+/// This macro defines the flag value (0x02) that enables Unicode character correction during text rendering.
+///
+#define RT_ENABLE_CORRECT_CONVERT   0x02
+
+#define RT_RENDER_SMOOTHRECT 0x01
+
+//RenderTarget Flags
+
 #ifdef UGRCGL_EXPORTS
 #define UGRCGL_API __declspec(dllexport)
 #else
@@ -37,14 +72,21 @@
 
 namespace ugr
 {
+	typedef int BOOL;
+	typedef unsigned long long CGLFlags;
 	typedef int INT;
 	typedef float FLOAT;
-	typedef float *VAO;
+	typedef float VAO;
+	typedef const char* LPCSTR;
+	typedef const wchar_t* LPCWSTR;
+	typedef const char* PCSTR;
+	typedef const wchar_t* PCWSTR;
 	typedef void* HANDLE;
 	typedef short SHORT;
 	typedef short *PSHORT;
 	typedef short CharSurface;
 	typedef unsigned char Color;
+	typedef unsigned char BYTE;
 	typedef char CHAR;
 	typedef struct _s_CharPixel {
 		union {
