@@ -57,7 +57,7 @@ namespace ugr
 		/// using the provided character and color.
 		/// </remarks>
 		/// \note if you specify a negative coordinate the SetPixel() function will not render it!
-		VOID SetPixel(Vector2i pos, SHORT c = 0x2588, Color color = 0x0F);
+		VOID SetPixel(Vector2i pos, CharSurface c = 0x2588, Color color = 0x0F);
 		/// <summary>
 		/// This function finds the clipped position of a 2D point.
 		/// If any given point has a negative value or a value larger than the screen size,
@@ -83,14 +83,14 @@ namespace ugr
 		/// <param name="p2">The second 2D point defining the opposite corner of the section.</param>
 		/// <param name="c">The character to be used for filling the section. (Default: 0x2588)</param>
 		/// <param name="color">The color to be applied to the filled section. (Default: 0x0F)</param>
-		VOID Fill(Vector2i p1, Vector2i p2, SHORT c = 0x2588, Color color = 0x0F);
+		VOID Fill(Vector2i p1, Vector2i p2, CharSurface c = 0x2588, Color color = 0x0F);
 		/// <summary>
 		/// Fills a section defined by two 2D points with the specified character and color.
 		/// </summary>
 		/// <param name="rect">The ShortRect holds both the corner of the section and the oppoisite corner.</param>
 		/// <param name="c">The character to be used for filling the section. (Default: 0x2588)</param>
 		/// <param name="color">The color to be applied to the filled section. (Default: 0x0F)</param>
-		VOID Fill(ShortRect rect, SHORT c = 0x2588, Color color = 0x0F);
+		VOID Fill(ShortRect rect, CharSurface c = 0x2588, Color color = 0x0F);
 		
 		/// <summary>
 		/// Renders a line in the buffer using two 2D points.
@@ -99,20 +99,50 @@ namespace ugr
 		/// <param name="p2">The ending point of the line.</param>
 		/// <param name="c">The character to be used for rendering the line. (Default: 0x2588)</param>
 		/// <param name="color">The color of the line. (Default: 0x0F)</param>
-		VOID RenderLine(Vector2i p1, Vector2i p2, SHORT c = 0x2588, Color color = 0x0F);
+		VOID RenderLine(Vector2i p1, Vector2i p2, CharSurface c = 0x2588, Color color = 0x0F);
 		/// <summary>
 		/// Renders a line in the buffer using two 2D points.
 		/// </summary>
+		/// <remarks>
+		/// This function uses Bresenham line algorithm see the link for more detail <https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm>
+		/// </remarks>
+		/// 
 		/// <param name="rect"> The ShortRect holds both the first point and second point.</param>
 		/// <param name="c">The character to be used for rendering the line. (Default: 0x2588)</param>
 		/// <param name="color">The color of the line. (Default: 0x0F)</param>}
-		VOID RenderLine(ShortRect rect, SHORT c = 0x2588, Color color = 0x0F);
+		VOID RenderLine(ShortRect rect, CharSurface c = 0x2588, Color color = 0x0F);
 		/// <summary>
 		/// Renders a triangle in the buffer using 3 points
 		/// </summary>
-		VOID RenderTriangle(Vector2i p1, Vector2i p2, Vector2i p3, SHORT c = 0x2588, Color color = 0x0F);
-		VOID RenderTriangle(VAO p, SHORT c, Color color = 0x0F);
+		VOID RenderTriangle(Vector2i p1, Vector2i p2, Vector2i p3, CharSurface c = 0x2588, Color color = 0x0F);
+		VOID RenderTriangle(VAO* p, CharSurface c = 0x2588, Color color = 0x0F);
+
+		VOID RenderQuad(ShortRect rect1, ShortRect rect2, CharSurface c = 0x2588, Color color = 0x0F);
+		VOID RenderQuad(ShortRect rect, CharSurface c = 0x2588, Color color = 0x0F);
+
+		VOID RenderText(Vector2i pos, LPCSTR str, Color color = 0x0F, CGLFlags _Flags_ = NULL);
+		VOID RenderText(Vector2i pos, LPCWSTR str, Color color = 0x0F, CGLFlags _Flags_ = NULL);
+
+		/// <summary>
+		/// Availale Shader
+		/// Defaule:
+		/// void VertexShader(int& p, int& x, int& y)
+		/// {
+		/// 	p += (p < 0) ? 4 * x++ + (6) : 4 * (x++ - y--) + 10;
+		/// }
+		/// </summary>
+		VOID RenderCircle(Vector2i p1, INT radius, CharSurface c = 0x2588, Color color = 0x0F, VOID(*VertexShader)(int& p, int& x, int& y) = NULL);
+		
+		VOID RasterizeTriangle(Vector2i p1, Vector2i p2, Vector2i p3, CharSurface c = 0x2588, Color color = 0x0F);
+
+		VOID RasterizeCircle(Vector2i p1, INT r, CharSurface c = 0x2588, Color color = 0x0F, VOID(*VertexShader)(int& p, int& x, int& y) = NULL);
+
+		VOID RasterizeQuad(ShortRect rect, CharSurface c = 0x2588, Color color = 0x0F);
+		VOID RasterizeQuad(ShortRect rect1, ShortRect rect2, CharSurface c = 0x2588, Color color = 0x0F);
+
+		BOOL CheckInBoundaries(Vector2i pos, ShortRect rect);
 	private:
+		SHORT CorrectConversion(BYTE c);
 		RenderElements re;
 	};
 }
