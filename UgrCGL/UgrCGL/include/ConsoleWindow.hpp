@@ -103,7 +103,7 @@ namespace ugr
 		/// </remarks>
 		/// <param name="c">The character used to fill the screen. (Default: 0x2588)</param>
 		/// <param name="color">The color applied to the screen. (Default: 0x00)</param>
-		VOID ClearScreen(SHORT c = 0x2588, Color color = 0x00);
+		VOID ClearScreen(CharSurface c = 0x2588, Color color = 0x00);
 		/// <summary>
 		/// Releases all the memory that the class has stored.
 		/// </summary>
