@@ -1,4 +1,4 @@
-// O------------------------------------LICENSE--------------------------------------O
+﻿// O------------------------------------LICENSE--------------------------------------O
 // |  MIT License																	 |
 // |  																				 |
 // |  Copyright(c) 2023 Joud Kandeel												 |
@@ -21,37 +21,39 @@
 // |  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE	 |
 // |  SOFTWARE.																		 |
 // O---------------------------------------------------------------------------------O
-
 #include <UgrCGL.hpp>
+
+void VertexShader(int& p, int& x, int& y)
+{
+	p += (p < 0) ? 4 * x++ + (600) : 4 * (x++ + y--) + 100;
+}
 
 class Demo : public ugr::ConsoleWindow
 {
 public:
-	Demo() : rect({ 0 })
+	Demo()
 	{
 		this->InitConsoleWindow();
-		this->CreateConsoleBufferWindow(ugr::Vector2i(240, 75), ugr::Vector2i(8, 14));
-		rect.x = rect.y = 20;
-		rect.width = rect.height = 50;
-		this->p[0] = ugr::Vector2i(0, 73);
-		this->p[1] = ugr::Vector2i(120, 0);
-		this->p[2] = ugr::Vector2i(238, 73);
+		this->CreateConsoleBufferWindow(ugr::Vector2i(240, 128), ugr::Vector2i(8, 8));
 	}
+	
 	int run()
 	{
+		ugr::ShortRect rect1 = {10, 10, 5, 20};
+		ugr::ShortRect rect2 = {20, 40, 40, 20};
 		while (true)
 		{
-			this->RenderTriangle(this->p[0], this->p[1], this->p[2]);
+			this->ClearScreen();
+
+			this->RenderCircle(ugr::Vector2i(120, 64), 20, 0x2588, 0x0F, VertexShader);
+			this->RasterizeQuad(rect1, rect2);
 			this->Display();
 		}
 		return 0;
 	}
-private:
-	ugr::Vector2i p[3];
-	ugr::ShortRect rect;
 };
 
-int main(int argv, char** argc)
+int main()
 {
 	Demo d;
 	return d.run();
