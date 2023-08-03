@@ -96,7 +96,7 @@ namespace ugr
         //Display the buffer on the Console Window
         WriteConsoleOutputW(this->m_hConsole, PCHAR_INFO(this->m_buffer), { SHORT(this->m_screen.x), SHORT(this->m_screen.y) }, {}, (PSMALL_RECT)&this->m_rect);
     }
-    VOID ConsoleWindow::ClearScreen(SHORT c, Color color)
+    VOID ConsoleWindow::ClearScreen(CharSurface c, Color color)
     {
         this->Fill(Vector2i(), this->m_screen, c, color);
     }
