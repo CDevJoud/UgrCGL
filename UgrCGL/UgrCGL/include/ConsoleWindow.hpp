@@ -23,7 +23,7 @@
 // O---------------------------------------------------------------------------------O
 
 #pragma once
-#include <RenderTarget.hpp>
+#include <Panel.hpp>
 
 namespace ugr
 {
@@ -96,15 +96,6 @@ namespace ugr
 		/// </remarks>
 		VOID Display();
 		/// <summary>
-		/// Clears the screen buffer, preparing it for rendering the next frame.
-		/// </summary>
-		/// <remarks>
-		/// Call this function at the beginning of every frame to clear the screen and avoid viewing artifacts from the previous frame.
-		/// </remarks>
-		/// <param name="c">The character used to fill the screen. (Default: 0x2588)</param>
-		/// <param name="color">The color applied to the screen. (Default: 0x00)</param>
-		VOID ClearScreen(CharSurface c = 0x2588, Color color = 0x00);
-		/// <summary>
 		/// Releases all the memory that the class has stored.
 		/// </summary>
 		/// <remarks>
@@ -113,7 +104,10 @@ namespace ugr
 		/// to prevent potential crashes in your program.
 		/// </remarks>
 		VOID ShutDown();
+
+		VOID RenderPanel(Panel* panel);
 	private:
+		VOID SetUpFrame(Vector2i pos, Vector2i size, Color color);
 		HANDLE m_hConsole = NULL;
 		HANDLE m_hConsoleIn = NULL;
 		PCharPixel m_buffer = NULL;

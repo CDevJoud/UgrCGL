@@ -1,31 +1,45 @@
 /*****************************************************************//**
- * \file   RenderTarget.hpp
+* \file   RenderTarget.hpp
+* \copyright (C) MIT License 2022-2023 Joud Kandeel
+*
+* \author CDevJoud
+* \date   02/Aug/2023
+*********************************************************************/
+/*****************************************************************//**
+* \file   ConsoleWindow.hpp
+* \copyright (C) MIT License 2022-2023 Joud Kandeel
+*
+* \author CDevJoud
+* \date   02/Aug/2023
+*********************************************************************/
+/*****************************************************************//**
+* \file   Vector.hpp
+* \copyright (C) MIT License 2022-2023 Joud Kandeel
+*
+* \author CDevJoud
+* \date   02/Aug/2023
+*********************************************************************/
+/*****************************************************************//**
+ * \file   UgrCGL.hpp
  * \copyright (C) MIT License 2022-2023 Joud Kandeel
  *
  * \author CDevJoud
  * \date   02/Aug/2023
  *********************************************************************/
 /*****************************************************************//**
- * \file   ConsoleWindow.hpp
- * \copyright (C) MIT License 2022-2023 Joud Kandeel
- *
- * \author CDevJoud
- * \date   02/Aug/2023
- *********************************************************************/
- /*****************************************************************//**
-  * \file   Vector.hpp
-  * \copyright (C) MIT License 2022-2023 Joud Kandeel
-  *
-  * \author CDevJoud
-  * \date   02/Aug/2023
-  *********************************************************************/
-  /*****************************************************************//**
-   * \file   UgrCGL.hpp
-   * \copyright (C) MIT License 2022-2023 Joud Kandeel
-   *
-   * \author CDevJoud
-   * \date   02/Aug/2023
-   *********************************************************************/
+* \file   Panel.hpp
+* \copyright (C) MIT License 2022-2023 Joud Kandeel
+*
+* \author CDevJoud
+* \date   02/Aug/2023
+*********************************************************************/
+/*****************************************************************//**
+* \file   EventProcessor.hpp
+* \copyright (C) MIT License 2022-2023 Joud Kandeel
+*
+* \author CDevJoud
+* \date   02/Aug/2023
+*********************************************************************/
 #pragma once
 #define VOID void
 #define NULL 0
@@ -69,11 +83,15 @@
 #else
 #define UGRCGL_API __declspec(dllimport)
 #endif
+#define TRUE 1
+#define FALSE 0
 
 namespace ugr
 {
 	typedef int BOOL;
 	typedef unsigned long long CGLFlags;
+	typedef unsigned long DWORD;
+	typedef unsigned int UINT;
 	typedef int INT;
 	typedef float FLOAT;
 	typedef float VAO;
@@ -84,10 +102,15 @@ namespace ugr
 	typedef void* HANDLE;
 	typedef short SHORT;
 	typedef short *PSHORT;
+	typedef unsigned short WORD;
 	typedef short CharSurface;
 	typedef unsigned char Color;
 	typedef unsigned char BYTE;
 	typedef char CHAR;
+	typedef struct _COORD {
+		SHORT X;
+		SHORT Y;
+	} COORD, * PCOORD;
 	typedef struct _s_CharPixel {
 		union {
 			wchar_t UnicodeChar;
@@ -101,4 +124,45 @@ namespace ugr
 		SHORT width;
 		SHORT height;
 	} ShortRect, *PShortRect;
+	typedef struct _WINDOW_BUFFER_SIZE_RECORD {
+		COORD dwSize;
+	} WINDOW_BUFFER_SIZE_RECORD, * PWINDOW_BUFFER_SIZE_RECORD;
+
+	typedef struct _MENU_EVENT_RECORD {
+		UINT dwCommandId;
+	} MENU_EVENT_RECORD, * PMENU_EVENT_RECORD;
+
+	typedef struct _FOCUS_EVENT_RECORD {
+		BOOL bSetFocus;
+	} FOCUS_EVENT_RECORD, * PFOCUS_EVENT_RECORD;
+
+	typedef struct _KEY_EVENT_RECORD {
+		BOOL bKeyDown;
+		WORD wRepeatCount;
+		WORD wVirtualKeyCode;
+		WORD wVirtualScanCode;
+		union {
+			wchar_t UnicodeChar;
+			char   AsciiChar;
+		} uChar;
+		DWORD dwControlKeyState;
+	} KEY_EVENT_RECORD, * PKEY_EVENT_RECORD;
+
+	typedef struct _MOUSE_EVENT_RECORD {
+		COORD dwMousePosition;
+		DWORD dwButtonState;
+		DWORD dwControlKeyState;
+		DWORD dwEventFlags;
+	} MOUSE_EVENT_RECORD, * PMOUSE_EVENT_RECORD;
+
+	typedef struct _INPUT_RECORD {
+		WORD EventType;
+		union {
+			KEY_EVENT_RECORD KeyEvent;
+			MOUSE_EVENT_RECORD MouseEvent;
+			WINDOW_BUFFER_SIZE_RECORD WindowBufferSizeEvent;
+			MENU_EVENT_RECORD MenuEvent;
+			FOCUS_EVENT_RECORD FocusEvent;
+		} Event;
+	} InputRecord, *pInputRecord;
 }

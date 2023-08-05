@@ -1,4 +1,4 @@
-﻿// O------------------------------------LICENSE--------------------------------------O
+// O------------------------------------LICENSE--------------------------------------O
 // |  MIT License																	 |
 // |  																				 |
 // |  Copyright(c) 2023 Joud Kandeel												 |
@@ -21,35 +21,37 @@
 // |  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE	 |
 // |  SOFTWARE.																		 |
 // O---------------------------------------------------------------------------------O
-#include <UgrCGL.hpp>
+#include <Menu.hpp>
+#include <vector>
 
-class Demo : private ugr::ConsoleWindow
+namespace ugr
 {
-public:
-	int run()
+	class Menu::pImpl
 	{
-		this->InitConsoleWindow();
-		this->CreateConsoleBufferWindow(ugr::Vector2i(240, 128), ugr::Vector2i(8, 8));
-		ugr::Panel p;
-		p.CreatePanel(ugr::Vector2i(40, 40));
-		p.SetPosition(ugr::Vector2i(120 - 20, 64 - 20));
-		p.CreateMenuBar(39, 0x2588, 0x08);
-		while (true)
-		{
-			p.ClearScreen(0x2588, 0x01);
-
-			p.Display();
-
-			this->ClearScreen(0x2588, 0x0C);
-			this->RenderPanel(&p);
-			this->Display();
-		}
-		return 0;
+	public:
+		SHORT m_n16Color = 0x08;
+		BOOL m_bIsHidden = TRUE;
+		std::vector<LPCWSTR> m_vecElements;
+		Vector2i m_ClickableMenuPosition;
+		Vector2i m_size;
+	};
+	Menu::~Menu()
+	{
+		this->m_pImpl->m_vecElements.clear();
+		this->m_pImpl->m_vecElements.shrink_to_fit();
+		delete this->m_pImpl;
 	}
-};
-
-int main()
-{
-	Demo d;
-	return d.run();
+	VOID Menu::CreateMenu(Vector2i size)
+	{
+		this->m_pImpl = new pImpl;
+		this->m_pImpl->m_size = size;
+	}
+	VOID Menu::AddElements(LPCWSTR str)
+	{
+		this->m_pImpl->m_vecElements.push_back(str);
+	}
+	VOID Menu::SetColor(SHORT color)
+	{
+		this->m_pImpl->m_n16Color = color;
+	}
 }

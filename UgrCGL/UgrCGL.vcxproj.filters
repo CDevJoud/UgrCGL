@@ -30,6 +30,15 @@
     <ClInclude Include="UgrCGL\include\Vector.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UgrCGL\include\Panel.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UgrCGL\include\EventProcessor.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UgrCGL\include\Menu.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UgrCGL\src\ConsoleWindow.cpp">
@@ -38,5 +47,19 @@
     <ClCompile Include="UgrCGL\src\RenderTarget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UgrCGL\src\Panel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UgrCGL\src\EventProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UgrCGL\src\Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UgrCGL\include\doc_page\page.md" />
+    <None Include="UgrCGL\include\doc_page\subsystem.md" />
+    <None Include="UgrCGL\include\doc_page\RenderCircle_CoolShapes.md" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-﻿// O------------------------------------LICENSE--------------------------------------O
+// O------------------------------------LICENSE--------------------------------------O
 // |  MIT License																	 |
 // |  																				 |
 // |  Copyright(c) 2023 Joud Kandeel												 |
@@ -21,35 +21,23 @@
 // |  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE	 |
 // |  SOFTWARE.																		 |
 // O---------------------------------------------------------------------------------O
-#include <UgrCGL.hpp>
 
-class Demo : private ugr::ConsoleWindow
+#pragma once
+#include <Register.hpp>
+#include <Vector.hpp>
+
+namespace ugr
 {
-public:
-	int run()
+	class Menu
 	{
-		this->InitConsoleWindow();
-		this->CreateConsoleBufferWindow(ugr::Vector2i(240, 128), ugr::Vector2i(8, 8));
-		ugr::Panel p;
-		p.CreatePanel(ugr::Vector2i(40, 40));
-		p.SetPosition(ugr::Vector2i(120 - 20, 64 - 20));
-		p.CreateMenuBar(39, 0x2588, 0x08);
-		while (true)
-		{
-			p.ClearScreen(0x2588, 0x01);
-
-			p.Display();
-
-			this->ClearScreen(0x2588, 0x0C);
-			this->RenderPanel(&p);
-			this->Display();
-		}
-		return 0;
-	}
-};
-
-int main()
-{
-	Demo d;
-	return d.run();
+	public:
+		~Menu();
+		VOID CreateMenu(Vector2i size);
+		VOID AddElements(LPCWSTR str);
+		VOID SetColor(SHORT color);
+	private:
+		class pImpl;
+		friend class Panel;
+		pImpl* m_pImpl = NULL;
+	};
 }

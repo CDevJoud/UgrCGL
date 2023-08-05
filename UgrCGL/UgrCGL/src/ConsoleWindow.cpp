@@ -24,6 +24,7 @@
 
 #include <Windows.h>
 #include <ConsoleWindow.hpp>
+#include <Panel.hpp>
 
 namespace ugr
 {
@@ -96,14 +97,59 @@ namespace ugr
         //Display the buffer on the Console Window
         WriteConsoleOutputW(this->m_hConsole, PCHAR_INFO(this->m_buffer), { SHORT(this->m_screen.x), SHORT(this->m_screen.y) }, {}, (PSMALL_RECT)&this->m_rect);
     }
-    VOID ConsoleWindow::ClearScreen(CharSurface c, Color color)
-    {
-        this->Fill(Vector2i(), this->m_screen, c, color);
-    }
     VOID ConsoleWindow::ShutDown()
     {
         CloseHandle(this->m_hConsole);
         CloseHandle(this->m_hConsoleIn);
         delete[] this->m_buffer;
+    }
+    VOID ConsoleWindow::RenderPanel(Panel* panel)
+    {
+        Vector2i p1(panel->GetVecPosition());
+        Vector2i mpos, msize;
+        mpos = panel->GetVecPosition();
+        msize = panel->GetVecBufferSize();
+        Vector2i p2( mpos + msize);
+        auto pos = panel->GetVecPosition();
+        auto size = panel->GetVecBufferSize();
+        auto color = panel->GetBorderColor();
+        auto title = panel->GetPanelTitle();
+        auto titlecol = panel->GetPanelTitleColor();
+        //Draw The Border
+        SetUpFrame(pos, size, color);
+
+        this->RenderText(Vector2i(pos.x + (size.x / 2) - (lstrlenW(title) / 2), pos.y - 1), title, titlecol);
+
+        for (INT y = p1.y; y < p2.y; y++)
+            for (INT x = p1.x; x < p2.x; x++)
+            {
+                INT py = (y - p1.y);
+                INT px = (x - p1.x);
+                auto surface = panel->GetBuffer()[py * panel->GetVecBufferSize().x + px].Char.UnicodeChar;
+                auto color = panel->GetBuffer()[py * panel->GetVecBufferSize().x + px].Color;
+                SetPixel(Vector2i(x, y), surface, color);
+            }
+        Panel::pImpl* s = NULL;
+    }
+    VOID ConsoleWindow::SetUpFrame(Vector2i pos, Vector2i size, Color color)
+    {
+        this->RenderLine(Vector2i(pos.x - 1, pos.y - 1), Vector2i(pos.x + size.x - 1, pos.y - 1), 0x2500, color);
+
+        this->RenderLine(Vector2i(pos.x - 1, pos.y - 1), Vector2i(pos.x - 1, pos.y + size.y - 1), 0x2502, color);
+
+        this->RenderLine(Vector2i(pos.x, pos.y + size.y), Vector2i(pos.x + size.x, pos.y + size.y), 0x2500, color);
+
+        this->RenderLine(Vector2i(pos.x + size.x, pos.y + size.y), Vector2i(pos.x + size.x, pos.y), 0x2502, color);
+
+        SetPixel(Vector2i(pos.x - 1, pos.y - 1), 0x256D, color);
+
+        //Right
+        SetPixel(Vector2i(pos.x + size.x, pos.y - 1), 0x256E, color);
+
+        //Left
+        SetPixel(Vector2i(pos.x - 1, pos.y + size.y), 0x2570, color);
+
+        //Bottom
+        SetPixel(pos + size, 0x256F, color);
     }
 }

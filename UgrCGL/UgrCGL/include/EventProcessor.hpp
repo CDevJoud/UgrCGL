@@ -1,4 +1,4 @@
-﻿// O------------------------------------LICENSE--------------------------------------O
+// O------------------------------------LICENSE--------------------------------------O
 // |  MIT License																	 |
 // |  																				 |
 // |  Copyright(c) 2023 Joud Kandeel												 |
@@ -21,35 +21,45 @@
 // |  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE	 |
 // |  SOFTWARE.																		 |
 // O---------------------------------------------------------------------------------O
-#include <UgrCGL.hpp>
 
-class Demo : private ugr::ConsoleWindow
+#pragma once
+#include <Vector.hpp>
+#include <Register.hpp>
+namespace ugr
 {
-public:
-	int run()
+	class EventProcessor
 	{
-		this->InitConsoleWindow();
-		this->CreateConsoleBufferWindow(ugr::Vector2i(240, 128), ugr::Vector2i(8, 8));
-		ugr::Panel p;
-		p.CreatePanel(ugr::Vector2i(40, 40));
-		p.SetPosition(ugr::Vector2i(120 - 20, 64 - 20));
-		p.CreateMenuBar(39, 0x2588, 0x08);
-		while (true)
+	private:
+		struct KeyStrokesCondition
 		{
-			p.ClearScreen(0x2588, 0x01);
+			BOOL bStrokePressed;
+			BOOL bStrokeReleased;
+			BOOL bStrokeIsHeld;
+		} m_KeyboardCondition[256], m_MouseCondition[5];
+		SHORT m_NewKeyboardCondition[256] = { 0 };
+		SHORT m_OldKeyboardCondition[256] = { 0 };
+		BOOL m_OldMouseCondition[5] = { 0 };
+		BOOL m_NewMouseCondition[5] = { 0 };
+	public:
+		EventProcessor() = default;
+		EventProcessor(HANDLE consoleInput);
+		enum class MouseType
+		{
+			Left = 0, Right, Middle
+		};
 
-			p.Display();
 
-			this->ClearScreen(0x2588, 0x0C);
-			this->RenderPanel(&p);
-			this->Display();
-		}
-		return 0;
-	}
-};
+		KeyStrokesCondition Keyboard(INT ID) { return this->m_KeyboardCondition[ID]; }
+		Vector2i GetMousePos() const { return this->m_mousePos; }
+		KeyStrokesCondition Mouse(MouseType ID);
 
-int main()
-{
-	Demo d;
-	return d.run();
+		VOID ProcessEvents();
+	protected:
+		VOID InitEventProcessor(HANDLE hConsoleInput);
+	private:
+		Vector2i m_mousePos;
+		HANDLE m_handleConsoleInput = nullptr;
+		InputRecord mapKeys;
+		BOOL ShiftOn = false;
+	};
 }

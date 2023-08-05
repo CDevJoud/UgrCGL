@@ -41,6 +41,7 @@ namespace ugr
 		{
 			this->re.buffer[pos.y * this->re.screen.x + pos.x].Char.UnicodeChar = c;
 			this->re.buffer[pos.y * this->re.screen.x + pos.x].Color = color;
+			//WriteConsoleOutputW(this->re.hConsole, PCHAR_INFO(this->re.buffer), { SHORT(this->re.screen.x), SHORT(this->re.screen.y) }, {}, (PSMALL_RECT)&this->re.rect);
 		}
 	}
 	VOID RenderTarget::CalculateClipOn(Vector2i& i)
@@ -72,6 +73,10 @@ namespace ugr
 		for (SHORT h = rect.y; h < rect.height; h++)
 			for (SHORT w = rect.x; w < rect.width; w++)
 				this->SetPixel(Vector2i(w, h), c, color);
+	}
+	VOID RenderTarget::ClearScreen(CharSurface c, Color color)
+	{
+		this->Fill(Vector2i(), this->re.screen, c, color);
 	}
 	VOID RenderTarget::RenderLine(Vector2i p1, Vector2i p2, CharSurface c, Color color)
 	{
@@ -241,6 +246,13 @@ namespace ugr
 		this->RenderLine(p[1] + pos, p[2] + pos, c, color);
 		this->RenderLine(p[2] + pos, p[3] + pos, c, color);
 		this->RenderLine(p[3] + pos, p[0] + pos, c, color);
+	}
+	VOID RenderTarget::RenderQuad(Vector2i p1, Vector2i p2, Vector2i p3, Vector2i p4, CharSurface c, Color color)
+	{
+		this->RenderLine(p1, p2, c, color);
+		this->RenderLine(p2, p3, c, color);
+		this->RenderLine(p3, p4, c, color);
+		this->RenderLine(p4, p1, c, color);
 	}
 	VOID RenderTarget::RenderText(Vector2i pos, LPCSTR str, Color color, CGLFlags _flags_)
 	{
