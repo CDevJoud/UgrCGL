@@ -27,7 +27,7 @@
 #include <Register.hpp>
 namespace ugr
 {
-	class EventProcessor
+	class UGRCGL_API EventProcessor
 	{
 	private:
 		struct KeyStrokesCondition
