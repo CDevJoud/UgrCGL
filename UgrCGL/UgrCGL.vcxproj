@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="UgrCGL\include\Button.hpp" />
     <ClInclude Include="UgrCGL\include\Menu.hpp" />
     <ClInclude Include="UgrCGL\include\EventProcessor.hpp" />
     <ClInclude Include="UgrCGL\include\Panel.hpp" />
@@ -29,6 +30,7 @@
     <ClInclude Include="UgrCGL\include\Vector.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="UgrCGL\src\Button.cpp" />
     <ClCompile Include="UgrCGL\src\Menu.cpp" />
     <ClCompile Include="UgrCGL\src\EventProcessor.cpp" />
     <ClCompile Include="UgrCGL\src\Panel.cpp" />

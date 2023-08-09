@@ -1,7 +1,7 @@
 #pragma once
 #include <RenderTarget.hpp>
-#include <EventProcessor.hpp>
 #include <Menu.hpp>
+#include <Button.hpp>
 namespace ugr
 {
 	class UGRCGL_API Panel : public RenderTarget
@@ -21,7 +21,7 @@ namespace ugr
 
 		//VOID RenderTextBox(TextBox* box);
 		//VOID RenderInputBox(InputBox* box);
-		//VOID RenderButton(Button* btn);
+		VOID RenderButton(Button* btn);
 
 		VOID SetTitle(LPCWSTR title, Color color = 0x0F);
 		VOID Display();

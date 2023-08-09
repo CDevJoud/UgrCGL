@@ -81,14 +81,10 @@ namespace ugr
 	VOID RenderTarget::RenderLine(Vector2i p1, Vector2i p2, CharSurface c, Color color)
 	{
 		//Thanks Javidx9 :D
-		INT x1 = p1.x; INT x2 = p2.x; INT y1 = p1.y; INT y2 = p2.y;
-
+		INT x1 = p1.x; INT y1 = p1.y; INT x2 = p2.x; INT y2 = p2.y;
 		INT x, y, dx, dy, dx1, dy1, px, py, xe, ye, i;
-
 		dx = x2 - x1; dy = y2 - y1;
-
 		dx1 = abs(dx); dy1 = abs(dy);
-
 		px = 2 * dy1 - dx1;	py = 2 * dx1 - dy1;
 		if (dy1 <= dx1)
 		{
@@ -101,7 +97,7 @@ namespace ugr
 				x = x2; y = y2; xe = x1;
 			}
 
-			this->SetPixel(Vector2i(x, y), c, color);
+			SetPixel(Vector2i(x, y), c, color);
 
 			for (i = 0; x < xe; i++)
 			{
@@ -113,7 +109,7 @@ namespace ugr
 					if ((dx < 0 && dy < 0) || (dx > 0 && dy > 0)) y = y + 1; else y = y - 1;
 					px = px + 2 * (dy1 - dx1);
 				}
-				this->SetPixel(Vector2i(x, y), c, color);
+				SetPixel(Vector2i(x, y), c, color);
 			}
 		}
 		else
@@ -127,7 +123,7 @@ namespace ugr
 				x = x2; y = y2; ye = y1;
 			}
 
-			this->SetPixel(Vector2i(x, y), c, color);
+			SetPixel(Vector2i(x, y), c, color);
 
 			for (i = 0; y < ye; i++)
 			{
@@ -139,7 +135,7 @@ namespace ugr
 					if ((dx < 0 && dy < 0) || (dx > 0 && dy > 0)) x = x + 1; else x = x - 1;
 					py = py + 2 * (dx1 - dy1);
 				}
-				this->SetPixel(Vector2i(x, y), c, color);
+				SetPixel(Vector2i(x, y), c, color);
 			}
 		}
 	}

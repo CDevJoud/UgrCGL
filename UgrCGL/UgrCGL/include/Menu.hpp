@@ -28,16 +28,31 @@
 
 namespace ugr
 {
-	class Menu
+	class UGRCGL_API Menu
 	{
 	public:
 		~Menu();
 		VOID CreateMenu(Vector2i size);
 		VOID AddElements(LPCWSTR str);
 		VOID SetColor(SHORT color);
+		VOID SetClickablePosition(Vector2i pos);
+		VOID SetVisibility(BOOL sw);
 	private:
 		class pImpl;
 		friend class Panel;
 		pImpl* m_pImpl = NULL;
+
+		Color GetColor() const;
+		BOOL IsHidden() const;
+		Vector2i GetSize() const;
+		Vector2i GetClickablePosition() const;
+
+		/// <summary>
+		/// VectorMenuPair.
+		/// This Function Will return menu text and amount of it. **IMPORTANT** remember to call FreeVMPGetter to free it!"If You use it in a loop"
+		/// </summary>
+		/// <returns>VMP</returns>
+		VMP GetElements() const;
+		VOID FreeVMPGetter(VMP vmp);
 	};
 }

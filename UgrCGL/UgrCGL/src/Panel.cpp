@@ -55,6 +55,7 @@ namespace ugr
         ZeroMemory(this->m_pImpl->m_Buffer, 4 * size.x * size.y);
         this->m_pImpl->re.buffer = this->m_pImpl->m_Buffer;
         this->m_pImpl->re.screen = size;
+        this->m_pImpl->re.rect = { 0, 0, short(size.x - 1), short(size.y - 1) };
         this->m_pImpl->m_Paneltitle = L"";
         this->InitRenderTarget(m_pImpl->re);
     }
@@ -211,26 +212,26 @@ namespace ugr
         this->RenderText(Vector2i(2, pos.y - 1), title, titlecol);
     }*/
 
-    //VOID Panel::RenderButton(Button* btn)
-    //{
-    //    auto pos = btn->m_pos;
-    //    auto size = btn->m_size;
-    //    auto title = btn->m_title;
-    //    auto titlecol = btn->m_n8TitleColor;
-    //    auto color = btn->m_n8Color;
-    //    if (btn->m_bIsHovering)
-    //    {
-    //        color = ~color;
-    //        titlecol = ~titlecol;
-    //    }
+    VOID Panel::RenderButton(Button* btn)
+    {
+        auto pos = btn->m_pos;
+        auto size = btn->m_size;
+        auto title = btn->m_title;
+        auto titlecol = btn->m_n8TitleColor;
+        auto color = btn->m_n8Color;
+        if (btn->m_bIsHovering)
+        {
+            color = ~color;
+            titlecol = ~titlecol;
+        }
 
 
-    //    btn->m_posRelativeToConsole = this->m_vecPosition + pos;
+        btn->m_posRelativeToConsole = this->m_pImpl->m_vecPosition + pos;
 
-    //    this->RenderLine(pos, Vector2i(pos.x + size.x - 1, pos.y + size.y), 0x2588, color);
-    //    this->RenderText(Vector2i(pos.x + (size.x / 2) - (lstrlenW(title) / 2), pos.y), title, titlecol);
-    //    //this->RenderText(Vector2i(1, 1), title, titlecol);
-    //}
+        this->RenderLine(pos, Vector2i(pos.x + size.x - 1, pos.y + size.y), 0x2588, color);
+        this->RenderText(Vector2i(pos.x + (size.x / 2) - (lstrlenW(title) / 2), pos.y), title, titlecol);
+        //this->RenderText(Vector2i(1, 1), title, titlecol);
+    }
 
     VOID Panel::SetTitle(LPCWSTR title, Color color)
     {
@@ -245,55 +246,64 @@ namespace ugr
         auto menusur = this->m_pImpl->m_MenuBarProp.surface;
         auto menucol = this->m_pImpl->m_MenuBarProp.color;
 
-        this->RenderLine(Vector2i(0, 0), Vector2i(menusizex, 0), menusur, menucol);
+        if(menusizex > 0)
+            this->RenderLine(Vector2i(0, 0), Vector2i(menusizex, 0), menusur, menucol);
 
         SHORT offsetX = 2;
-        //for (auto& i : this->m_vecMenuButton)
-        //{
-        //    //This is temp
-        //    i.RedirectMenuBox->m_ClickableMenuPosition = Vector2i(offsetX, 0);
-        //    //----------------------------------------------------------------
+        for (auto& i : this->m_pImpl->m_vecMenuButton)
+        {
+            //This is temp
+            i.RedirectMenuBox->SetClickablePosition(Vector2i(offsetX, 0));
+            //----------------------------------------------------------------
 
+            this->RenderText(Vector2i(offsetX, 0), i.menuTitle, i.MenuButtonColor);
+            offsetX += lstrlenW(i.menuTitle) + 2;
 
-        //    this->RenderText(Vector2i(offsetX, 0), i.menuTitle, i.MenuButtonColor);
-        //    offsetX += lstrlenW(i.menuTitle) + 2;
+            //Render the Menu
+            if (!i.RedirectMenuBox->IsHidden())
+            {
+                Vector2i offset(0, 1);
+                ShortRect rect;
+                rect.x = i.RedirectMenuBox->GetClickablePosition().x + offset.x;
+                rect.y = i.RedirectMenuBox->GetClickablePosition().y + offset.y;
 
-        //    //Render the Menu
-        //    if (!i.RedirectMenuBox->m_bIsHidden)
-        //    {
-        //        Vector2i offset(0, 1);
-        //        this->RasterizeQuad(i.RedirectMenuBox->m_size, i.RedirectMenuBox->m_ClickableMenuPosition + offset, 0x2588, i.RedirectMenuBox->m_n16Color);
-        //        Vector2i elOffset = i.RedirectMenuBox->m_ClickableMenuPosition + offset;
-
-        //        //Render Menu Elements
-        //        for (auto& j : i.RedirectMenuBox->m_vecElements)
-        //        {
-        //            this->RenderText(elOffset, j, 0x8F);
-        //            elOffset.y++;
-        //        }
-        //    }
-        //}
+                rect.width = i.RedirectMenuBox->GetSize().x;
+                rect.height = i.RedirectMenuBox->GetSize().y;
+                this->RasterizeQuad(rect, 0x2588, i.RedirectMenuBox->GetColor());
+                Vector2i elOffset = i.RedirectMenuBox->GetClickablePosition() + offset;
+                
+                //Render Menu Elements
+                VMP VectorMenuPair = i.RedirectMenuBox->GetElements();
+                
+                for (int i = 0; i < VectorMenuPair.size; i++)
+                {
+                    this->RenderText(elOffset, VectorMenuPair.dStrW[i], 0x8F);
+                    elOffset.y++;
+                }
+                i.RedirectMenuBox->FreeVMPGetter(VectorMenuPair);
+            }
+        }
     }
     VOID Panel::ProcessEvents(EventProcessor* EP)
     {
         auto mousePos = EP->GetMousePos() - this->m_pImpl->m_vecPosition;
-        //for (auto& i : this->m_vecMenuButton)
-        //{
-        //    auto pos = i.RedirectMenuBox->m_ClickableMenuPosition;
-        //    auto mSize = i.RedirectMenuBox->m_size;
-        //    SHORT size = lstrlenW(i.menuTitle) + 1;
-        //    if (mousePos.x >= pos.x && mousePos.x <= (pos.x + lstrlenW(i.menuTitle) - 1) && mousePos.y == pos.y)
-        //    {
-        //        if (EP->Mouse(EventProcessor::MouseType::Left).bStrokePressed)
-        //        {
-        //            i.RedirectMenuBox->m_bIsHidden = false;
-        //        }
-        //    }
-        //    //check for Mouse hovering on the menu
-        //    else if (!(mousePos.x >= pos.x && mousePos.x < (pos.x + mSize.x) &&
-        //        mousePos.y >= pos.y + 1 && mousePos.y < (pos.y + mSize.y + 1)))
-        //        i.RedirectMenuBox->m_bIsHidden = true;
-        //}
+        for (auto& i : this->m_pImpl->m_vecMenuButton)
+        {
+            auto pos = i.RedirectMenuBox->GetClickablePosition();
+            auto mSize = i.RedirectMenuBox->GetSize();
+            SHORT size = lstrlenW(i.menuTitle) + 1;
+            if (mousePos.x >= pos.x && mousePos.x <= (pos.x + lstrlenW(i.menuTitle) - 1) && mousePos.y == pos.y)
+            {
+                if (EP->Mouse(EventProcessor::MouseType::Left).bStrokePressed)
+                {
+                    i.RedirectMenuBox->SetVisibility(false);
+                }
+            }
+            //check for Mouse hovering on the menu
+            else if (!(mousePos.x >= pos.x && mousePos.x < (pos.x + mSize.x) &&
+                mousePos.y >= pos.y + 1 && mousePos.y < (pos.y + mSize.y + 1)))
+                i.RedirectMenuBox->SetVisibility(true);
+        }
     }
     VOID Panel::SetUpFrame(Vector2i pos, Vector2i size, Color color)
     {

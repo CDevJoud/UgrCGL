@@ -21,6 +21,7 @@
 // |  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE	 |
 // |  SOFTWARE.																		 |
 // O---------------------------------------------------------------------------------O
+#include <Windows.h>
 #include <Menu.hpp>
 #include <vector>
 
@@ -53,5 +54,50 @@ namespace ugr
 	VOID Menu::SetColor(SHORT color)
 	{
 		this->m_pImpl->m_n16Color = color;
+	}
+	VOID Menu::SetClickablePosition(Vector2i pos)
+	{
+		this->m_pImpl->m_ClickableMenuPosition = pos;
+	}
+	VOID Menu::SetVisibility(BOOL sw)
+	{
+		this->m_pImpl->m_bIsHidden = sw;
+	}
+	Color Menu::GetColor() const
+	{
+		return this->m_pImpl->m_n16Color;
+	}
+	BOOL Menu::IsHidden() const
+	{
+		return this->m_pImpl->m_bIsHidden;
+	}
+	Vector2i Menu::GetSize() const
+	{
+		return this->m_pImpl->m_size;
+	}
+	Vector2i Menu::GetClickablePosition() const
+	{
+		return this->m_pImpl->m_ClickableMenuPosition;
+	}
+	VMP Menu::GetElements() const
+	{
+		VMP p;
+		p.size = this->m_pImpl->m_vecElements.size();
+
+		p.dStrW = new wchar_t*[p.size];
+		for (std::size_t i = 0; i < p.size; ++i)
+		{
+			p.dStrW[i] = new wchar_t[lstrlenW(this->m_pImpl->m_vecElements[i]) + 1];
+			lstrcpyW(p.dStrW[i], this->m_pImpl->m_vecElements[i]);
+		}
+
+		return p;
+	}
+	VOID Menu::FreeVMPGetter(VMP vmp)
+	{
+		for (size_t i = 0; i < vmp.size; ++i) {
+			delete[] vmp.dStrW[i];
+		}
+		delete[] vmp.dStrW;
 	}
 }

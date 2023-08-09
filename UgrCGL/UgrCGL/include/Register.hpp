@@ -97,6 +97,7 @@ namespace ugr
 	typedef float VAO;
 	typedef const char* LPCSTR;
 	typedef const wchar_t* LPCWSTR;
+	typedef  wchar_t* LPWSTR;
 	typedef const char* PCSTR;
 	typedef const wchar_t* PCWSTR;
 	typedef void* HANDLE;
@@ -165,4 +166,9 @@ namespace ugr
 			FOCUS_EVENT_RECORD FocusEvent;
 		} Event;
 	} InputRecord, *pInputRecord;
+	typedef struct _VecMenuPair
+	{
+		DWORD size;
+		LPWSTR* dStrW;
+	}VMP;
 }
