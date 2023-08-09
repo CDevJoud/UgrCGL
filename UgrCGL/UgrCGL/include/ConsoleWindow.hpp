@@ -68,7 +68,7 @@ namespace ugr
 	* }
 	* \endcode
 	*/
-	class UGRCGL_API ConsoleWindow : public RenderTarget
+	class UGRCGL_API ConsoleWindow : public RenderTarget, public EventProcessor
 	{
 	public:
 		/// <summary>
@@ -104,10 +104,16 @@ namespace ugr
 		/// to prevent potential crashes in your program.
 		/// </remarks>
 		VOID ShutDown();
-
+		FLOAT dt = 0.0F;
 		VOID RenderPanel(Panel* panel);
+		VOID ProcessFPS();
+		FLOAT GetFPS() const;
+		VOID SetFullScreen(BOOL sw);
 	private:
 		VOID SetUpFrame(Vector2i pos, Vector2i size, Color color);
+		class pImpl;
+		pImpl* m_pImpl = NULL;
+
 		HANDLE m_hConsole = NULL;
 		HANDLE m_hConsoleIn = NULL;
 		PCharPixel m_buffer = NULL;

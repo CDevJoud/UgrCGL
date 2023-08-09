@@ -25,14 +25,22 @@
 #include <Windows.h>
 #include <ConsoleWindow.hpp>
 #include <Panel.hpp>
+#include <chrono>
 
 namespace ugr
 {
+    class ConsoleWindow::pImpl
+    {
+    public:
+        std::chrono::system_clock::time_point tp1 = std::chrono::system_clock::now();
+        std::chrono::system_clock::time_point tp2 = std::chrono::system_clock::now();
+    };
     VOID ConsoleWindow::InitConsoleWindow()
     {
         //Store the memory address of the console we will then use it to display the buffer on the console window
         this->m_hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
         this->m_hConsoleIn = GetStdHandle(STD_INPUT_HANDLE);
+        this->m_pImpl = new pImpl;
     }
     VOID ConsoleWindow::CreateConsoleBufferWindow(Vector2i size, Vector2i fontSize)
     {
@@ -91,6 +99,7 @@ namespace ugr
         re.rect = this->m_rect;
         re.screen = this->m_screen;
         this->InitRenderTarget(re);
+        this->InitEventProcessor(this->m_hConsoleIn);
     }
     VOID ConsoleWindow::Display()
     {
@@ -102,6 +111,7 @@ namespace ugr
         CloseHandle(this->m_hConsole);
         CloseHandle(this->m_hConsoleIn);
         delete[] this->m_buffer;
+        delete m_pImpl;
     }
     VOID ConsoleWindow::RenderPanel(Panel* panel)
     {
@@ -126,10 +136,42 @@ namespace ugr
                 INT py = (y - p1.y);
                 INT px = (x - p1.x);
                 auto surface = panel->GetBuffer()[py * panel->GetVecBufferSize().x + px].Char.UnicodeChar;
-                auto color = panel->GetBuffer()[py * panel->GetVecBufferSize().x + px].Color;
-                SetPixel(Vector2i(x, y), surface, color);
+                auto _color = panel->GetBuffer()[py * panel->GetVecBufferSize().x + px].Color;
+                SetPixel(Vector2i(x, y), surface, _color);
             }
         Panel::pImpl* s = NULL;
+    }
+    VOID ConsoleWindow::ProcessFPS()
+    {
+        this->m_pImpl->tp2 = std::chrono::system_clock::now();
+        std::chrono::duration<float> dt = this->m_pImpl->tp2 - this->m_pImpl->tp1;
+        this->m_pImpl->tp1 = this->m_pImpl->tp2;
+        this->dt = dt.count();
+    }
+    FLOAT ConsoleWindow::GetFPS() const
+    {
+        return 1.0f / this->dt;
+    }
+    VOID ConsoleWindow::SetFullScreen(BOOL sw)
+    {
+        if (sw)
+        {
+            HWND consoleWindow = GetConsoleWindow();
+            if (consoleWindow != NULL)
+            {
+                SetWindowLongPtr(consoleWindow, GWL_STYLE, GetWindowLongPtr(consoleWindow, GWL_STYLE) & ~WS_OVERLAPPEDWINDOW);
+                SetWindowPos(consoleWindow, NULL, 0, 0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), SWP_FRAMECHANGED);
+            }
+        }
+        else
+        {
+            HWND consoleWindow = GetConsoleWindow();
+            if (consoleWindow != NULL)
+            {
+                SetWindowLongPtr(consoleWindow, GWL_STYLE, GetWindowLongPtr(consoleWindow, GWL_STYLE) | WS_OVERLAPPEDWINDOW);
+                SetConsoleWindowInfo(&this->m_hConsole, TRUE, (PSMALL_RECT)&this->m_rect);
+            }
+        }
     }
     VOID ConsoleWindow::SetUpFrame(Vector2i pos, Vector2i size, Color color)
     {
