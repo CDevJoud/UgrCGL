@@ -28,31 +28,84 @@
 
 namespace ugr
 {
-	class UGRCGL_API Menu
-	{
-	public:
-		~Menu();
-		VOID CreateMenu(Vector2i size);
-		VOID AddElements(LPCWSTR str);
-		VOID SetColor(SHORT color);
-		VOID SetClickablePosition(Vector2i pos);
-		VOID SetVisibility(BOOL sw);
-	private:
-		class pImpl;
-		friend class Panel;
-		pImpl* m_pImpl = NULL;
+    class UGRCGL_API Menu
+    {
+    public:
+        /// <summary>
+        /// Destructor for the Menu class.
+        /// </summary>
+        ~Menu();
 
-		Color GetColor() const;
-		BOOL IsHidden() const;
-		Vector2i GetSize() const;
-		Vector2i GetClickablePosition() const;
+        /// <summary>
+        /// Creates a menu with the specified size.
+        /// </summary>
+        /// <param name="size">The size of the menu.</param>
+        VOID CreateMenu(Vector2i size);
 
-		/// <summary>
-		/// VectorMenuPair.
-		/// This Function Will return menu text and amount of it. **IMPORTANT** remember to call FreeVMPGetter to free it!"If You use it in a loop"
-		/// </summary>
-		/// <returns>VMP</returns>
-		VMP GetElements() const;
-		VOID FreeVMPGetter(VMP vmp);
-	};
+        /// <summary>
+        /// Adds elements to the menu.
+        /// </summary>
+        /// <param name="str">The text to add as an element.</param>
+        VOID AddElements(LPCWSTR str);
+
+        /// <summary>
+        /// Sets the color of the menu.
+        /// </summary>
+        /// <param name="color">The color to set.</param>
+        VOID SetColor(SHORT color);
+
+        /// <summary>
+        /// Sets the position where the menu becomes clickable.
+        /// </summary>
+        /// <param name="pos">The clickable position.</param>
+        VOID SetClickablePosition(Vector2i pos);
+
+        /// <summary>
+        /// Sets the visibility of the menu.
+        /// </summary>
+        /// <param name="sw">TRUE to make the menu visible, FALSE to hide it.</param>
+        VOID SetVisibility(BOOL sw);
+
+    private:
+        class pImpl;  // Pointer to implementation (PIMPL) idiom.
+        friend class Panel;
+        pImpl* m_pImpl = NULL;  // PIMPL instance.
+
+        /// <summary>
+        /// Returns the color of the menu.
+        /// </summary>
+        /// <returns>The color of the menu.</returns>
+        Color GetColor() const;
+
+        /// <summary>
+        /// Checks if the menu is hidden.
+        /// </summary>
+        /// <returns>TRUE if the menu is hidden, FALSE otherwise.</returns>
+        BOOL IsHidden() const;
+
+        /// <summary>
+        /// Returns the size of the menu.
+        /// </summary>
+        /// <returns>The size of the menu.</returns>
+        Vector2i GetSize() const;
+
+        /// <summary>
+        /// Returns the clickable position of the menu.
+        /// </summary>
+        /// <returns>The clickable position of the menu.</returns>
+        Vector2i GetClickablePosition() const;
+
+        /// <summary>
+        /// Retrieves the menu elements as a VectorMenuPair.
+        /// This function returns menu text and the amount of it. **IMPORTANT** Remember to call FreeVMPGetter to free it, especially if used in a loop.
+        /// </summary>
+        /// <returns>The VectorMenuPair containing menu elements.</returns>
+        VMP GetElements() const;
+
+        /// <summary>
+        /// Frees memory associated with a VectorMenuPair.
+        /// </summary>
+        /// <param name="vmp">The VectorMenuPair to free.</param>
+        VOID FreeVMPGetter(VMP vmp);
+    };
 }

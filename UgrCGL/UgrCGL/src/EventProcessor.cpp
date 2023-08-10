@@ -126,6 +126,14 @@ namespace ugr
     {
         this->m_handleConsoleInput = hConsoleInput;
     }
+    EventProcessor::KeyStrokesCondition EventProcessor::Keyboard(INT ID)
+    {
+        return this->m_KeyboardCondition[ID];
+    }
+    Vector2i EventProcessor::GetMousePos() const
+    {
+        return this->m_mousePos;
+    }
     EventProcessor::KeyStrokesCondition EventProcessor::Mouse(MouseType ID)
     {
         switch (ID)

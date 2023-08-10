@@ -21,6 +21,7 @@
 // |  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE	 |
 // |  SOFTWARE.																		 |
 // O---------------------------------------------------------------------------------O
+#include <Windows.h>
 #include <UgrCGL.hpp>
 #include <memory>
 using namespace ugr;
@@ -31,7 +32,9 @@ public:
 	Application() :
 		m_bIsRunning(TRUE),
 		m_ptrPanel(new Panel),
-		m_ptrInBox(new InputBox)
+		m_ptrInBox(new InputBox),
+		m_ptrBox(new TextBox),
+		m_ptrBtn(new Button)
 	{
 		this->InitConsoleWindow();
 		this->CreateConsoleBufferWindow(Vector2i(240, 64), Vector2i(8, 16));
@@ -41,12 +44,20 @@ public:
 
 		this->m_ptrInBox->CreateBox(Vector2i(38, 1));
 		this->m_ptrInBox->SetPosition(Vector2i(1, 19));
+
+		this->m_ptrBox->CreateBox(Vector2i(30, 15));
+		this->m_ptrInBox->SetFlag(ENABLE_INPUT_ON_RETURN);
+
+		this->m_ptrBtn->SetTitle(L"<Exit>", 0xC0);
+		this->m_ptrBtn->SetColor(0x0C);
+		this->m_ptrBtn->SetPosition(Vector2i(32, 1));
 	}
 	~Application()
 	{
 		this->ShutDown();
 		delete this->m_ptrPanel;
 		delete this->m_ptrInBox;
+		delete this->m_ptrBox;
 	}
 	INT run()
 	{
@@ -55,12 +66,29 @@ public:
 			this->ProcessEvents();
 			this->m_ptrInBox->ProcessEvents(this);
 			this->m_ptrPanel->ProcessEvents(this);
+			this->m_ptrBtn->ProcessEvents(this);
 
-			this->m_bIsRunning = !this->Keyboard(0x1B).bStrokeReleased;
+			int a = m_ptrBox->GetLinesSize();
+			int b = m_ptrBox->GetScrollPosition();
+			if (this->Keyboard(VK_UP).bStrokeIsHeld && m_ptrBox->GetScrollPosition() > 0) this->m_ptrBox->MoveUp();
+			if (this->Keyboard(VK_DOWN).bStrokeIsHeld && m_ptrBox->GetScrollPosition() < static_cast<int>(m_ptrBox->GetLinesSize()) - 12) this->m_ptrBox->MoveDown();
+			if (this->Keyboard(VK_PRIOR).bStrokeIsHeld && m_ptrBox->GetScrollPosition() > 0) for (INT i = 0; i < 10; i++) this->m_ptrBox->MoveUp();
+			if (this->Keyboard(VK_NEXT).bStrokeIsHeld && m_ptrBox->GetScrollPosition() < static_cast<int>(m_ptrBox->GetLinesSize() - 12)) for (INT i = 0; i < 10; i++) this->m_ptrBox->MoveDown();
+
+
+			if (this->m_ptrInBox->Submited())
+			{
+				this->m_ptrBox->AddLine(this->m_ptrInBox->GetStrInputW());
+				this->m_ptrInBox->ResetStrInput();
+			}
+
+			this->m_bIsRunning = !this->m_ptrBtn->IsClicked();
 
 			this->ClearScreen();
 			this->m_ptrPanel->ClearScreen(0x2588, 0x01);
 			this->m_ptrPanel->RenderInputBox(this->m_ptrInBox);
+			this->m_ptrPanel->RenderTextBox(this->m_ptrBox);
+			this->m_ptrPanel->RenderButton(this->m_ptrBtn);
 			this->m_ptrPanel->Display();
 			this->RenderPanel(this->m_ptrPanel);
 			this->Display();
@@ -72,6 +100,8 @@ public:
 private:
 	InputBox* m_ptrInBox;
 	Panel* m_ptrPanel;
+	TextBox* m_ptrBox;
+	Button* m_ptrBtn;
 	BOOL m_bIsRunning;
 };
 

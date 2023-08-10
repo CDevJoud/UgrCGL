@@ -27,39 +27,73 @@
 #include <Register.hpp>
 namespace ugr
 {
-	class UGRCGL_API EventProcessor
-	{
-	private:
-		struct KeyStrokesCondition
-		{
-			BOOL bStrokePressed;
-			BOOL bStrokeReleased;
-			BOOL bStrokeIsHeld;
-		} m_KeyboardCondition[256], m_MouseCondition[5];
-		SHORT m_NewKeyboardCondition[256] = { 0 };
-		SHORT m_OldKeyboardCondition[256] = { 0 };
-		BOOL m_OldMouseCondition[5] = { 0 };
-		BOOL m_NewMouseCondition[5] = { 0 };
-	public:
-		EventProcessor() = default;
-		EventProcessor(HANDLE consoleInput);
-		enum class MouseType
-		{
-			Left = 0, Right, Middle
-		};
+    class UGRCGL_API EventProcessor
+    {
+    private:
+        struct KeyStrokesCondition
+        {
+            BOOL bStrokePressed;
+            BOOL bStrokeReleased;
+            BOOL bStrokeIsHeld;
+        } m_KeyboardCondition[256], m_MouseCondition[5];
 
+        SHORT m_NewKeyboardCondition[256] = { 0 };
+        SHORT m_OldKeyboardCondition[256] = { 0 };
+        BOOL m_OldMouseCondition[5] = { 0 };
+        BOOL m_NewMouseCondition[5] = { 0 };
 
-		KeyStrokesCondition Keyboard(INT ID) { return this->m_KeyboardCondition[ID]; }
-		Vector2i GetMousePos() const { return this->m_mousePos; }
-		KeyStrokesCondition Mouse(MouseType ID);
+        Vector2i m_mousePos;  // Mouse position relative to the console window.
+        HANDLE m_handleConsoleInput = nullptr;  // Handle to the console input.
+        InputRecord mapKeys;  // Input record for mapping keys.
+        BOOL ShiftOn = false;  // Flag indicating if the Shift key is pressed.
 
-		VOID ProcessEvents();
-	protected:
-		VOID InitEventProcessor(HANDLE hConsoleInput);
-	private:
-		Vector2i m_mousePos;
-		HANDLE m_handleConsoleInput = nullptr;
-		InputRecord mapKeys;
-		BOOL ShiftOn = false;
-	};
+    public:
+        /// <summary>
+        /// Default constructor for the EventProcessor class.
+        /// </summary>
+        EventProcessor() = default;
+
+        /// <summary>
+        /// Constructor for the EventProcessor class.
+        /// </summary>
+        /// <param name="consoleInput">Handle to the console input.</param>
+        EventProcessor(HANDLE consoleInput);
+
+        enum class MouseType
+        {
+            Left = 0, Right, Middle
+        };
+
+        /// <summary>
+        /// Monitors keyboard events associated with the specified ID, such as clicks or interactions.
+        /// </summary>
+        /// <param name="ID">The unique identifier for the keyboard event being monitored.</param>
+        /// <returns>Returns a KeyStrokesCondition indicating the current state of the keyboard event.</returns>
+        KeyStrokesCondition Keyboard(INT ID);
+
+        /// <summary>
+        /// Retrieves the mouse position relative to the console window.
+        /// </summary>
+        /// <returns>A Vector2i representing the mouse coordinates.</returns>
+        Vector2i GetMousePos() const;
+
+        /// <summary>
+        /// Checks for mouse click events.
+        /// </summary>
+        /// <param name="ID">The type of mouse button to check.</param>
+        /// <returns>Returns a KeyStrokesCondition indicating the state of the mouse event.</returns>
+        KeyStrokesCondition Mouse(MouseType ID);
+
+        /// <summary>
+        /// Processes console input events.
+        /// </summary>
+        VOID ProcessEvents();
+
+    protected:
+        /// <summary>
+        /// Initializes the EventProcessor with the provided console input handle.
+        /// </summary>
+        /// <param name="hConsoleInput">Handle to the console input.</param>
+        VOID InitEventProcessor(HANDLE hConsoleInput);
+    };
 }

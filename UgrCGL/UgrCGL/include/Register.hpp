@@ -40,6 +40,20 @@
 * \author CDevJoud
 * \date   02/Aug/2023
 *********************************************************************/
+/*****************************************************************//**
+* \file   InputBox.hpp
+* \copyright (C) MIT License 2022-2023 Joud Kandeel
+*
+* \author CDevJoud
+* \date   10/Aug/2023
+*********************************************************************/
+/*****************************************************************//**
+* \file   TextBox.hpp
+* \copyright (C) MIT License 2022-2023 Joud Kandeel
+*
+* \author CDevJoud
+* \date   10/Aug/2023
+*********************************************************************/
 #pragma once
 #define VOID void
 #define NULL 0
@@ -76,6 +90,7 @@
 
 #define RT_RENDER_SMOOTHRECT 0x01
 
+#define ENABLE_INPUT_ON_RETURN 0x01
 //RenderTarget Flags
 
 #ifdef UGRCGL_EXPORTS

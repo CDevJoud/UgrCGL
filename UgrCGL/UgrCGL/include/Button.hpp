@@ -32,11 +32,36 @@ namespace ugr
 	class UGRCGL_API Button
 	{
 	public:
+		/// <summary>
+		/// Sets the title and title color of the button.
+		/// </summary>
+		/// <param name="title">The text to display on the button.</param>
+		/// <param name="color">The title color of the button.</param>
 		VOID SetTitle(LPCWSTR title, BYTE color);
+		/// <summary>
+		/// Set The Button Color.
+		/// </summary>
+		/// <param name="color"></param>
 		VOID SetColor(BYTE color);
+		/// <summary>
+		/// Set position of the button.
+		/// </summary>
+		/// <param name="pos"></param>
 		VOID SetPosition(Vector2i pos);
+		/// <summary>
+		/// Processes events for the button, such as handling hover and click actions.
+		/// </summary>
+		/// <param name="EP">A pointer to the EventProcessor responsible for handling events.</param>
 		VOID ProcessEvents(EventProcessor* EP);
+		/// <summary>
+		/// Check if the button were clicked.
+		/// </summary>
+		/// <returns></returns>
 		BOOL IsClicked();
+		/// <summary>
+		/// Check if the mouse hovers on the button.
+		/// </summary>
+		/// <returns></returns>
 		BOOL IsHovering();
 	private:
 		friend class Panel;
