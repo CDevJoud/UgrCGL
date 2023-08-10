@@ -19,23 +19,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="UgrCGL\include\InputBox.hpp" />
     <ClInclude Include="UgrCGL\include\Button.hpp" />
     <ClInclude Include="UgrCGL\include\Menu.hpp" />
     <ClInclude Include="UgrCGL\include\EventProcessor.hpp" />
     <ClInclude Include="UgrCGL\include\Panel.hpp" />
     <ClInclude Include="UgrCGL\include\RenderTarget.hpp" />
     <ClInclude Include="UgrCGL\include\ConsoleWindow.hpp" />
+    <ClInclude Include="UgrCGL\include\TextBox.hpp" />
     <ClInclude Include="UgrCGL\include\UgrCGL.hpp" />
     <ClInclude Include="UgrCGL\include\Register.hpp" />
     <ClInclude Include="UgrCGL\include\Vector.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="UgrCGL\src\InputBox.cpp" />
     <ClCompile Include="UgrCGL\src\Button.cpp" />
     <ClCompile Include="UgrCGL\src\Menu.cpp" />
     <ClCompile Include="UgrCGL\src\EventProcessor.cpp" />
     <ClCompile Include="UgrCGL\src\Panel.cpp" />
     <ClCompile Include="UgrCGL\src\RenderTarget.cpp" />
     <ClCompile Include="UgrCGL\src\ConsoleWindow.cpp" />
+    <ClCompile Include="UgrCGL\src\TextBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="UgrCGL\include\doc_page\page.md" />

@@ -42,6 +42,12 @@
     <ClInclude Include="UgrCGL\include\Button.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UgrCGL\include\InputBox.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UgrCGL\include\TextBox.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UgrCGL\src\ConsoleWindow.cpp">
@@ -60,6 +66,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UgrCGL\src\Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UgrCGL\src\InputBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UgrCGL\src\TextBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
