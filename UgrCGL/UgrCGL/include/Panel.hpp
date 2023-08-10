@@ -2,6 +2,7 @@
 #include <RenderTarget.hpp>
 #include <Menu.hpp>
 #include <Button.hpp>
+#include <InputBox.hpp>
 namespace ugr
 {
 	class UGRCGL_API Panel : public RenderTarget
@@ -20,7 +21,7 @@ namespace ugr
 		//VOID RenderPanel(Panel* p);
 
 		//VOID RenderTextBox(TextBox* box);
-		//VOID RenderInputBox(InputBox* box);
+		VOID RenderInputBox(InputBox* box);
 		VOID RenderButton(Button* btn);
 
 		VOID SetTitle(LPCWSTR title, Color color = 0x0F);

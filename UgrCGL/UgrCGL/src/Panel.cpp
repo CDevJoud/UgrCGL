@@ -185,14 +185,14 @@ namespace ugr
 
     //}
 
-    /*VOID Panel::RenderInputBox(InputBox* box)
+    VOID Panel::RenderInputBox(InputBox* box)
     {
-        auto pos = box->m_pos;
-        auto size = box->m_size;
-        auto title = box->m_title;
-        auto titlecol = box->m_n16TitleColor;
-        auto color = box->m_n16ColorBorder;
-        box->m_posRelativeToConsole = this->m_vecPosition + pos;
+        auto pos = box->GetPosition();
+        auto size = box->GetSize();
+        auto title = box->GetTitle();
+        auto titlecol = box->GetTitleColor();
+        auto color = box->GetBorderColor();
+        box->SetPositionRelativeToConsoleWindow(this->m_pImpl->m_vecPosition + pos);
 
         Vector2i p1 = pos;
         Vector2i p2 = pos + size;
@@ -202,15 +202,15 @@ namespace ugr
             {
                 INT py = (y - p1.y);
                 INT px = (x - p1.x);
-                auto surface = box->re.buffer[py * box->m_size.x + px].Char.UnicodeChar;
-                auto color = box->re.buffer[py * box->m_size.x + px].Attributes;
+                auto surface = box->GetCharPixel(py * box->GetSize().x + px).Char.UnicodeChar;
+                auto color = box->GetCharPixel(py * box->GetSize().x + px).Color;
                 SetPixel(Vector2i(x, y), surface, color);
             }
 
 
         this->SetUpFrame(pos, size, color);
         this->RenderText(Vector2i(2, pos.y - 1), title, titlecol);
-    }*/
+    }
 
     VOID Panel::RenderButton(Button* btn)
     {
