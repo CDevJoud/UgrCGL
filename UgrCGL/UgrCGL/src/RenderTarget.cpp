@@ -331,13 +331,19 @@ namespace ugr
 			}
 			else
 			{
+				//Need to Fix For buffer overflow
 				for (INT i = 0; i < lstrlenW(str); i++)
 				{
 					if (_Flags_ & RT_ENABLE_CORRECT_CONVERT)
+					{
 						this->re.buffer[(pos.y * this->re.screen.x + pos.x) + i].Char.UnicodeChar = this->CorrectConversion(str[i]);
-					else
+						this->re.buffer[(pos.y * this->re.screen.x + pos.x) + i].Color = color;
+					}
+					else if (this->CheckInBoundaries(Vector2i(pos.x + i, pos.y), { SHORT(i), 0, this->re.rect.width, this->re.rect.height }))
+					{
 						this->re.buffer[(pos.y * this->re.screen.x + pos.x) + i].Char.UnicodeChar = str[i];
-					this->re.buffer[(pos.y * this->re.screen.x + pos.x) + i].Color = color;
+						this->re.buffer[(pos.y * this->re.screen.x + pos.x) + i].Color = color;
+					}
 				}
 			}
 		}
