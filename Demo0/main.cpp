@@ -22,34 +22,61 @@
 // |  SOFTWARE.																		 |
 // O---------------------------------------------------------------------------------O
 #include <UgrCGL.hpp>
+#include <memory>
+using namespace ugr;
 
-class Demo : private ugr::ConsoleWindow
+class Application : private ConsoleWindow
 {
 public:
-	int run()
+	Application() :
+		m_bIsRunning(TRUE),
+		m_ptrPanel(new Panel),
+		m_ptrInBox(new InputBox)
 	{
 		this->InitConsoleWindow();
-		this->CreateConsoleBufferWindow(ugr::Vector2i(240, 128), ugr::Vector2i(8, 8));
-		ugr::Panel p;
-		p.CreatePanel(ugr::Vector2i(40, 40));
-		p.SetPosition(ugr::Vector2i(120 - 20, 64 - 20));
-		p.CreateMenuBar(39, 0x2588, 0x08);
-		while (true)
+		this->CreateConsoleBufferWindow(Vector2i(240, 64), Vector2i(8, 16));
+
+		this->m_ptrPanel->CreatePanel(Vector2i(40, 20));
+		this->m_ptrPanel->SetPosition(Vector2i(100, 22));
+
+		this->m_ptrInBox->CreateBox(Vector2i(38, 1));
+		this->m_ptrInBox->SetPosition(Vector2i(1, 19));
+	}
+	~Application()
+	{
+		this->ShutDown();
+		delete this->m_ptrPanel;
+		delete this->m_ptrInBox;
+	}
+	INT run()
+	{
+		while (this->m_bIsRunning)
 		{
-			p.ClearScreen(0x2588, 0x01);
+			this->ProcessEvents();
+			this->m_ptrInBox->ProcessEvents(this);
+			this->m_ptrPanel->ProcessEvents(this);
 
-			p.Display();
+			this->m_bIsRunning = !this->Keyboard(0x1B).bStrokeReleased;
 
-			this->ClearScreen(0x2588, 0x0C);
-			this->RenderPanel(&p);
+			this->ClearScreen();
+			this->m_ptrPanel->ClearScreen(0x2588, 0x01);
+			this->m_ptrPanel->RenderInputBox(this->m_ptrInBox);
+			this->m_ptrPanel->Display();
+			this->RenderPanel(this->m_ptrPanel);
 			this->Display();
 		}
+		this->ClearScreen();
+		this->Display();
 		return 0;
 	}
+private:
+	InputBox* m_ptrInBox;
+	Panel* m_ptrPanel;
+	BOOL m_bIsRunning;
 };
 
-int main()
+int main(int argv, char** argc)
 {
-	Demo d;
-	return d.run();
+	std::unique_ptr<Application> app = std::make_unique<Application>();
+	return app->run();
 }
