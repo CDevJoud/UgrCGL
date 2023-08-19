@@ -22,7 +22,7 @@
 // |  SOFTWARE.																		 |
 // O---------------------------------------------------------------------------------O
 
-/*! \mainpage My Personal Index Page
+/*! \mainpage UgrCGL 
  *
  * # UgrCGL - Object-Oriented Console Graphics Library
  * 
