@@ -1,4 +1,8 @@
-﻿// O------------------------------------LICENSE--------------------------------------O
+﻿#include <Windows.h>
+#include <UgrCGL.hpp>
+#include <memory>
+using namespace ugr;
+// O------------------------------------LICENSE--------------------------------------O
 // |  MIT License																	 |
 // |  																				 |
 // |  Copyright(c) 2023 Joud Kandeel												 |
@@ -21,10 +25,6 @@
 // |  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE	 |
 // |  SOFTWARE.																		 |
 // O---------------------------------------------------------------------------------O
-#include <Windows.h>
-#include <UgrCGL.hpp>
-#include <memory>
-using namespace ugr;
 
 class Application : private ConsoleWindow
 {
@@ -47,7 +47,7 @@ public:
 
 		this->m_ptrBox->CreateBox(Vector2i(30, 15));
 		this->m_ptrInBox->SetFlag(ENABLE_INPUT_ON_RETURN);
-
+		
 		this->m_ptrBtn->SetTitle(L"<Exit>", 0xC0);
 		this->m_ptrBtn->SetColor(0x0C);
 		this->m_ptrBtn->SetPosition(Vector2i(32, 1));
@@ -107,6 +107,7 @@ private:
 
 int main(int argv, char** argc)
 {
+	//Hello This is atest
 	std::unique_ptr<Application> app = std::make_unique<Application>();
 	return app->run();
 }
