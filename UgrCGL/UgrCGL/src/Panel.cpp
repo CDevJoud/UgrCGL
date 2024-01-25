@@ -209,9 +209,10 @@ namespace ugr
 
 
         this->SetUpFrame(pos, size, color);
-        this->RenderText(Vector2i(2, pos.y - 1), title, titlecol);
+        this->RenderText(Vector2i(pos.x + 2, pos.y - 1), title, titlecol);
     }
 
+    //Glitch on Rendering Text if it's far next to Panel frame!
     VOID Panel::RenderButton(Button* btn)
     {
         auto pos = btn->m_pos;
