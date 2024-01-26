@@ -54,7 +54,8 @@ namespace ugr
 		auto mousePos = EP->GetMousePos();
 		INT y1 = mousePos.y - 1;
 		INT y2 = This->m_posRelativeToConsole.y - 1;
-		if (mousePos.x >= This->m_posRelativeToConsole.x && mousePos.x <= (This->m_posRelativeToConsole.x + This->m_size.x) - 1 && y1 == y2)
+		if (mousePos.x >= This->m_posRelativeToConsole.x && mousePos.x <= (This->m_posRelativeToConsole.x + This->m_size.x) - 1 &&
+			mousePos.y >= This->m_posRelativeToConsole.y && mousePos.y <= (This->m_posRelativeToConsole.y + This->m_size.y) - 1)
 		{
 			if (EP->Mouse(EventProcessor::MouseType::Left).bStrokePressed)
 			{
