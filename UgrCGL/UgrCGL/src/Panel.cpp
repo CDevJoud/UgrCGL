@@ -55,7 +55,7 @@ namespace ugr
         ZeroMemory(this->m_pImpl->m_Buffer, 4 * size.x * size.y);
         this->m_pImpl->re.buffer = this->m_pImpl->m_Buffer;
         this->m_pImpl->re.screen = size;
-        this->m_pImpl->re.rect = { 0, 0, short(size.x - 1), short(size.y - 1) };
+        this->m_pImpl->re.rect = { 0, 0, short(size.x), short(size.y) };
         this->m_pImpl->m_Paneltitle = L"";
         this->InitRenderTarget(m_pImpl->re);
     }
