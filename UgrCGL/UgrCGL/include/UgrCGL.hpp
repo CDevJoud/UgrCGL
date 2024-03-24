@@ -44,3 +44,5 @@
 
 #pragma once
 #include <ConsoleWindow.hpp>
+#include <Canvas.hpp>
+#include <Sprite.hpp>
