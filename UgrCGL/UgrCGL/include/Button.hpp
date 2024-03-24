@@ -26,12 +26,17 @@
 #pragma once
 #include <EventProcessor.hpp>
 #include <Vector.hpp>
+#include <functional>
 
 namespace ugr
 {
 	class UGRCGL_API Button
 	{
 	public:
+		Button();
+
+		~Button();
+
 		/// <summary>
 		/// Sets the title and title color of the button.
 		/// </summary>
@@ -58,20 +63,39 @@ namespace ugr
 		/// </summary>
 		/// <returns></returns>
 		BOOL IsClicked();
+
+		VOID OnClicked(const std::function<void(void)>& func);
+
+		VOID OnHovering(const std::function<void(void)>& func);
+
+		VOID OnNotHovering(const std::function<void(void)>& func);
+
 		/// <summary>
 		/// Check if the mouse hovers on the button.
 		/// </summary>
 		/// <returns></returns>
 		BOOL IsHovering();
+
+	///	
+	///	Getters
+	///	
+	
+		Vector2i GetPosition() const;
+
+		Vector2i GetSize() const;
+
+		LPCWSTR GetTitle() const;
+
+		Color GetTitleColor() const;
+
+		Color GetColor() const;
+
+		
 	private:
+		class pImpl;
+		pImpl* This = NULL;
 		friend class Panel;
-		Vector2i m_size;
-		LPCWSTR m_title;
-		BYTE m_n8TitleColor;
-		BYTE m_n8Color;
-		Vector2i m_pos;
-		Vector2i m_posRelativeToConsole;
-		BOOL m_bIsClicked;
-		BOOL m_bIsHovering;
+
+		void SetPositionRelativeToConsoleWindow(Vector2i pos);
 	};
 }
