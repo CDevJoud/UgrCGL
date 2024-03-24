@@ -34,6 +34,7 @@ namespace ugr
 		Vector2i screen{};
 		ShortRect rect{};
 	};
+	class Sprite;
 	class UGRCGL_API RenderTarget
 	{
 	public:
@@ -175,6 +176,8 @@ namespace ugr
 		/// <param name="color">Color of the text (default: 0x0F, white on black).</param>
 		/// <param name="_Flags_">Additional rendering flags to control text display (default: NULL).</param>
 		VOID RenderText(Vector2i pos, LPCWSTR str, Color color = 0x0F, CGLFlags _Flags_ = NULL);
+
+		VOID RenderSprite(Vector2i pos, Sprite*);
 
 		/// <summary>
 		/// Renders a circle on the screen using Bresenham's circle algorithm.

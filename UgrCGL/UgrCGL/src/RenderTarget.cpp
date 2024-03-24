@@ -26,6 +26,7 @@
 #include <math.h>
 #include <string>
 #include <vector>
+#include <Sprite.hpp>
 
 
 namespace ugr
@@ -347,6 +348,15 @@ namespace ugr
 				}
 			}
 		}
+	}
+	VOID RenderTarget::RenderSprite(Vector2i pos, Sprite* s)
+	{
+		for(int x = pos.x; x < s->GetSize().x; x++)
+			for (int y = pos.y; y < s->GetSize().y; y++)
+			{
+				CharPixel cp = s->GetPixel(x, y);
+				this->SetPixel(Vector2i(x, y), cp.Char.UnicodeChar, cp.Color);
+			}
 	}
 	VOID RenderTarget::RenderCircle(Vector2i p1, INT radius, CharSurface c, Color color, VOID(*VertexShader)(INT& p, INT& x, INT& y))
 	{
