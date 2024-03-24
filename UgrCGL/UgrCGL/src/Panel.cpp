@@ -215,19 +215,19 @@ namespace ugr
     //Glitch on Rendering Text if it's far next to Panel frame!
     VOID Panel::RenderButton(Button* btn)
     {
-        auto pos = btn->m_pos;
-        auto size = btn->m_size;
-        auto title = btn->m_title;
-        auto titlecol = btn->m_n8TitleColor;
-        auto color = btn->m_n8Color;
-        if (btn->m_bIsHovering)
+        auto pos = btn->GetPosition();
+        auto size = btn->GetSize();
+        auto title = btn->GetTitle();
+        auto titlecol = btn->GetTitleColor();
+        auto color = btn->GetColor();
+        if (btn->IsHovering())
         {
             color = ~color;
             titlecol = ~titlecol;
         }
 
 
-        btn->m_posRelativeToConsole = this->m_pImpl->m_vecPosition + pos;
+        btn->SetPositionRelativeToConsoleWindow(this->m_pImpl->m_vecPosition + pos);
 
         this->RenderLine(pos, Vector2i(pos.x + size.x - 1, pos.y + size.y), 0x2588, color);
         this->RenderText(Vector2i(pos.x + (size.x / 2) - (lstrlenW(title) / 2), pos.y), title, titlecol);
