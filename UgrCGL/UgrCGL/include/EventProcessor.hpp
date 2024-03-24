@@ -32,15 +32,15 @@ namespace ugr
     private:
         struct KeyStrokesCondition
         {
-            BOOL bStrokePressed;
-            BOOL bStrokeReleased;
-            BOOL bStrokeIsHeld;
-        } m_KeyboardCondition[256], m_MouseCondition[5];
+            bool bStrokePressed;
+            bool bStrokeReleased;
+            bool bStrokeIsHeld;
+        } m_KeyboardCondition[256]{}, m_MouseCondition[5]{};
 
         SHORT m_NewKeyboardCondition[256] = { 0 };
         SHORT m_OldKeyboardCondition[256] = { 0 };
-        BOOL m_OldMouseCondition[5] = { 0 };
-        BOOL m_NewMouseCondition[5] = { 0 };
+        bool m_OldMouseCondition[5] = { 0 };
+        bool m_NewMouseCondition[5] = { 0 };
 
         Vector2i m_mousePos;  // Mouse position relative to the console window.
         HANDLE m_handleConsoleInput = nullptr;  // Handle to the console input.
