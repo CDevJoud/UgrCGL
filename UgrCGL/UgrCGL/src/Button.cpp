@@ -38,7 +38,7 @@ namespace ugr
 		}
 		~pImpl()
 		{
-
+			this->m_mapFunctionCallBack.clear();
 		}
 		Vector2i m_size;
 		LPCWSTR m_title;
