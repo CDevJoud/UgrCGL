@@ -26,6 +26,7 @@
 #pragma once
 #include <RenderTarget.hpp>
 #include <EventProcessor.hpp>
+#include <functional>
 
 namespace ugr
 {
@@ -113,6 +114,7 @@ namespace ugr
         /// <param name="col">The color of the title.</param>
         VOID SetTitle(LPCWSTR title, Color col);
 
+        VOID OnSumbit(const std::function<void(void)>& func);
     private:
         /// <summary>
         /// Renders the input box without displaying it on the screen.

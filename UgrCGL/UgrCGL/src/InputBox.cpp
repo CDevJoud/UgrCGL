@@ -2,9 +2,12 @@
 #include <InputBox.hpp>
 #include <string>
 #include <conio.h>
+#include <map>
+#include <thread>
 
 namespace ugr
 {
+	
 	class InputBox::pImpl
 	{
 	public:
@@ -19,14 +22,26 @@ namespace ugr
 		Color m_n8TitleColor;
 		Color m_n8ColorBorder = 0x08;
 		CGLFlags m_flags;
+		SHORT CharPressed;
 		
+		//std::thread inputThread;
 		std::wstring m_strInput;
 		VOID ProcessKeyInput();
 		VOID CleanStrFromJunk(std::wstring& str);
+		static void InputThread(LPVOID lParam);
+		//static HANDLE hThread;
+
+		std::map<const char*, const std::function<void(void)>> m_mapFunctionCallBack;
 	};
+	//HANDLE InputBox::pImpl::hThread;
 	InputBox::InputBox()
 	{
 		this->This = new pImpl;
+		DWORD id = 0;
+		This->CharPressed = 0;
+		//This->hThread = CreateThread(NULL, 0, pImpl::InputThread, This, 0, &id);
+		//This->inputThread = std::thread(InputBox::pImpl::InputThread, this);
+
 	}
 	InputBox::~InputBox()
 	{
@@ -136,12 +151,14 @@ namespace ugr
 	}
 	InputBox::pImpl::~pImpl()
 	{
+		this->m_mapFunctionCallBack.clear();
+		//CloseHandle(this->hThread);
 		delete[] this->re.buffer;
 	}
 	VOID InputBox::pImpl::ProcessKeyInput()
 	{
 		//Process Key Might be Improved in the future!
-		SHORT c = _getch();
+		SHORT c = EventProcessor::GetText();
 		if (c == 0x08 && !this->m_strInput.empty())
 		{
 			this->m_strInput.pop_back();
@@ -158,6 +175,8 @@ namespace ugr
 		//This will be changed!!
 		if (c == 0x0D && this->m_flags == 1)
 		{
+			if (this->m_mapFunctionCallBack["OnSubmit"])
+				this->m_mapFunctionCallBack["OnSubmit"]();
 			this->m_bHasSumbited = TRUE;
 			this->m_n8ColorBorder = 0x0F;
 		}
@@ -180,6 +199,7 @@ namespace ugr
 		if (c == 224)
 			_getch();
 		this->CleanStrFromJunk(this->m_strInput);
+		this->CharPressed = 0;
 	}
 	VOID InputBox::pImpl::CleanStrFromJunk(std::wstring& str)
 	{
@@ -189,8 +209,24 @@ namespace ugr
 				tmp.push_back(i);
 		str = tmp;
 	}
+	void InputBox::pImpl::InputThread(LPVOID lParam)
+	{
+		/*pImpl* This = reinterpret_cast<pImpl*>(lParam);
+		HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
+		while (true) {
+			INPUT_RECORD irInBuf;
+			DWORD cNumRead;
+			ReadConsoleInput(hInput, &irInBuf, 1, &cNumRead);
+			if (irInBuf.EventType == KEY_EVENT && irInBuf.Event.KeyEvent.bKeyDown) 
+				This->CharPressed = irInBuf.Event.KeyEvent.uChar.UnicodeChar;
+		}*/
+	}
 	CharPixel InputBox::GetCharPixel(INT val) const
 	{
 		return This->re.buffer[val];
+	}
+	VOID InputBox::OnSumbit(const std::function<void(void)>& func)
+	{
+		This->m_mapFunctionCallBack.insert(std::make_pair<const char*, const std::function<void(void)>&>("OnSubmit", func));
 	}
 }
