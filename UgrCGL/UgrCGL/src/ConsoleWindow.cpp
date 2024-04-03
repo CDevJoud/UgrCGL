@@ -126,20 +126,39 @@ namespace ugr
         auto title = panel->GetPanelTitle();
         auto titlecol = panel->GetPanelTitleColor();
         //Draw The Border
-        SetUpFrame(pos, size, color);
+        
+        if (!panel->IsClosed())
+        {
+            SetUpFrame(pos, size, color);
+            this->RenderText(Vector2i(pos.x + (size.x / 2) - (lstrlenW(title) / 2), pos.y - 1), title, titlecol);
 
-        this->RenderText(Vector2i(pos.x + (size.x / 2) - (lstrlenW(title) / 2), pos.y - 1), title, titlecol);
-
-        for (INT y = p1.y; y < p2.y; y++)
-            for (INT x = p1.x; x < p2.x; x++)
+            for (INT y = p1.y; y < p2.y; y++)
+                for (INT x = p1.x; x < p2.x; x++)
+                {
+                    INT py = (y - p1.y);
+                    INT px = (x - p1.x);
+                    auto surface = panel->GetBuffer()[py * panel->GetVecBufferSize().x + px].Char.UnicodeChar;
+                    auto _color = panel->GetBuffer()[py * panel->GetVecBufferSize().x + px].Color;
+                    SetPixel(Vector2i(x, y), surface, _color);
+                }
+            /*Panel::pImpl* s = NULL;*/
+        }
+        if (panel->IsCloseable() && !panel->IsClosed())
+        {
+            Vector2i newPos = { pos.x + (size.x - 4), pos.y - 1 };
+            ShortRect rect = { newPos.x, newPos.y, (SHORT)newPos.x + 3, newPos.y + 1 };
+            if (this->CheckInBoundaries(this->GetMousePos(), rect))
             {
-                INT py = (y - p1.y);
-                INT px = (x - p1.x);
-                auto surface = panel->GetBuffer()[py * panel->GetVecBufferSize().x + px].Char.UnicodeChar;
-                auto _color = panel->GetBuffer()[py * panel->GetVecBufferSize().x + px].Color;
-                SetPixel(Vector2i(x, y), surface, _color);
+                this->RenderText(newPos, L"{X}", ~0xCF);
+                if (this->Mouse(EventProcessor::MouseType::Left).bStrokeReleased)
+                    panel->Close(true);
             }
-        Panel::pImpl* s = NULL;
+            else 
+                this->RenderText(newPos, L"{X}", 0xCF);
+            
+            //this->Display();
+        }
+        this->Display();
     }
     VOID ConsoleWindow::ProcessFPS()
     {
@@ -175,6 +194,7 @@ namespace ugr
     }
     VOID ConsoleWindow::SetUpFrame(Vector2i pos, Vector2i size, Color color)
     {
+        
         this->RenderLine(Vector2i(pos.x - 1, pos.y - 1), Vector2i(pos.x + size.x - 1, pos.y - 1), 0x2500, color);
 
         this->RenderLine(Vector2i(pos.x - 1, pos.y - 1), Vector2i(pos.x - 1, pos.y + size.y - 1), 0x2502, color);
@@ -193,5 +213,7 @@ namespace ugr
 
         //Bottom
         SetPixel(pos + size, 0x256F, color);
+
+        
     }
 }
