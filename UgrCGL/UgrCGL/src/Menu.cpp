@@ -24,73 +24,86 @@
 #include <Windows.h>
 #include <Menu.hpp>
 #include <vector>
+#include <map>
 
 namespace ugr
 {
 	class Menu::pImpl
 	{
 	public:
-		SHORT m_n16Color = 0x08;
+		Color m_n8Color = 0x08;
 		BOOL m_bIsHidden = TRUE;
 		std::vector<LPCWSTR> m_vecElements;
 		Vector2i m_ClickableMenuPosition;
-		Vector2i m_size;
+		Vector2i m_Size;
+		SHORT m_n16MenuPressed;
+
+		std::map<const char*, const std::function<void(int)>> m_mapFunctionCallBack;
 	};
+	Menu::Menu()
+	{
+		this->This = new pImpl;
+	}
 	Menu::~Menu()
 	{
-		this->m_pImpl->m_vecElements.clear();
-		this->m_pImpl->m_vecElements.shrink_to_fit();
-		delete this->m_pImpl;
+		This->m_vecElements.clear();
+		This->m_vecElements.shrink_to_fit();
+		delete this->This;
 	}
-	VOID Menu::CreateMenu(Vector2i size)
+	VOID Menu::CreateMenu(SHORT x)
 	{
-		this->m_pImpl = new pImpl;
-		this->m_pImpl->m_size = size;
+		if(!this->This)
+			this->This = new pImpl;
+		This->m_Size.x = x;
 	}
 	VOID Menu::AddElements(LPCWSTR str)
 	{
-		this->m_pImpl->m_vecElements.push_back(str);
+		This->m_vecElements.push_back(str);
 	}
 	VOID Menu::SetColor(SHORT color)
 	{
-		this->m_pImpl->m_n16Color = color;
+		This->m_n8Color = color;
 	}
 	VOID Menu::SetClickablePosition(Vector2i pos)
 	{
-		this->m_pImpl->m_ClickableMenuPosition = pos;
+		This->m_ClickableMenuPosition = pos;
 	}
 	VOID Menu::SetVisibility(BOOL sw)
 	{
-		this->m_pImpl->m_bIsHidden = sw;
+		This->m_bIsHidden = sw;
+	}
+	VOID Menu::OnMenuElementPressed(const std::function<void(int)>& func)
+	{
+		This->m_mapFunctionCallBack.insert(std::pair<const char*, const std::function<void(int)>>("OnElementPressed", func));
 	}
 	Color Menu::GetColor() const
 	{
-		return this->m_pImpl->m_n16Color;
+		return This->m_n8Color;
 	}
 	BOOL Menu::IsHidden() const
 	{
-		return this->m_pImpl->m_bIsHidden;
+		return This->m_bIsHidden;
 	}
 	Vector2i Menu::GetSize() const
 	{
-		return this->m_pImpl->m_size;
+		This->m_Size.y = This->m_vecElements.size();
+		return This->m_Size;
 	}
 	Vector2i Menu::GetClickablePosition() const
 	{
-		return this->m_pImpl->m_ClickableMenuPosition;
+		return This->m_ClickableMenuPosition;
 	}
 	VMP Menu::GetElements() const
 	{
 		VMP p;
-		p.size = this->m_pImpl->m_vecElements.size();
+		p.size = This->m_vecElements.size();
 
 		p.dStrW = new wchar_t*[p.size];
 		for (std::size_t i = 0; i < p.size; ++i)
 		{
-			p.dStrW[i] = new wchar_t[lstrlenW(this->m_pImpl->m_vecElements[i]) + 1];
-			lstrcpyW(p.dStrW[i], this->m_pImpl->m_vecElements[i]);
+			p.dStrW[i] = new wchar_t[lstrlenW(This->m_vecElements[i]) + 1];
+			lstrcpyW(p.dStrW[i], This->m_vecElements[i]);
 		}
-
 		return p;
 	}
 	VOID Menu::FreeVMPGetter(VMP vmp)
@@ -99,5 +112,17 @@ namespace ugr
 			delete[] vmp.dStrW[i];
 		}
 		delete[] vmp.dStrW;
+	}
+	VOID Menu::SetMenuValueOnPressed(INT value)
+	{
+		This->m_n16MenuPressed = value;
+	}
+	VOID Menu::CallLambdaFunction(LPCSTR func)
+	{
+		if (!strcmp(func, "OnElementPressed"))
+		{
+			if (This->m_mapFunctionCallBack[func])
+				This->m_mapFunctionCallBack[func](This->m_n16MenuPressed);
+		}
 	}
 }

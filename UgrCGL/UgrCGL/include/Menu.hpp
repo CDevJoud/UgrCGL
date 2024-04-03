@@ -25,12 +25,14 @@
 #pragma once
 #include <Register.hpp>
 #include <Vector.hpp>
+#include <functional>
 
 namespace ugr
 {
     class UGRCGL_API Menu
     {
     public:
+        Menu();
         /// <summary>
         /// Destructor for the Menu class.
         /// </summary>
@@ -40,7 +42,7 @@ namespace ugr
         /// Creates a menu with the specified size.
         /// </summary>
         /// <param name="size">The size of the menu.</param>
-        VOID CreateMenu(Vector2i size);
+        VOID CreateMenu(SHORT x);
 
         /// <summary>
         /// Adds elements to the menu.
@@ -66,10 +68,12 @@ namespace ugr
         /// <param name="sw">TRUE to make the menu visible, FALSE to hide it.</param>
         VOID SetVisibility(BOOL sw);
 
+        VOID OnMenuElementPressed(const std::function<void(int)>& func);
+
     private:
         class pImpl;  // Pointer to implementation (PIMPL) idiom.
         friend class Panel;
-        pImpl* m_pImpl = NULL;  // PIMPL instance.
+        pImpl* This = NULL;  // PIMPL instance.
 
         /// <summary>
         /// Returns the color of the menu.
@@ -107,5 +111,9 @@ namespace ugr
         /// </summary>
         /// <param name="vmp">The VectorMenuPair to free.</param>
         VOID FreeVMPGetter(VMP vmp);
+
+        VOID SetMenuValueOnPressed(INT value);
+
+        VOID CallLambdaFunction(LPCSTR func);
     };
 }
