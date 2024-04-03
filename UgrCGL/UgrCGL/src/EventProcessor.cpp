@@ -208,6 +208,7 @@ namespace ugr
         
         
         if (Keyboard( 226).bStrokePressed) if (Keyboard(VK_SHIFT).bStrokeIsHeld) return L'>'; else return L'<';
+        if (Keyboard( 190).bStrokePressed) if (Keyboard(VK_SHIFT).bStrokeIsHeld) return L':'; else return L'.';
 
         if (Keyboard(VK_ESCAPE).bStrokePressed) return VK_ESCAPE;
         if (Keyboard(VK_RETURN).bStrokePressed) return VK_RETURN;
