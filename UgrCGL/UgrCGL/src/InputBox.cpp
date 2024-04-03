@@ -74,26 +74,38 @@ namespace ugr
 		{
 			if (EP->Mouse(EventProcessor::MouseType::Left).bStrokePressed)
 			{
+				if (This->m_mapFunctionCallBack["OnFocus"])
+					This->m_mapFunctionCallBack["OnFocus"]();
 				This->m_bEnableInput = TRUE;
 				This->m_n8ColorBorder = 0x0F;
 				return;
 			}
 		}
+		else if (EP->Mouse(EventProcessor::MouseType::Left).bStrokePressed)
+		{
+			if (This->m_mapFunctionCallBack["OnUnFocus"])
+				This->m_mapFunctionCallBack["OnUnFocus"]();
+			This->m_bEnableInput = FALSE;
+			This->m_n8ColorBorder = 0x08;
+			return;
+		}
 		if (This->m_bEnableInput)
 			This->ProcessKeyInput();
 		else
+		{
 			This->m_bHasSumbited = FALSE;
+		}
 	}
 	LPCWSTR InputBox::GetStrInputW() const
 	{
 		return This->m_strInput.c_str();
 	}
-	LPCSTR InputBox::GetStrInput() const
+	std::string InputBox::GetStrInput()
 	{
 		INT sizeNeeded = WideCharToMultiByte(CP_UTF8, 0, This->m_strInput.c_str(), -1, NULL, 0, NULL, NULL);
 		std::string str(sizeNeeded, 0);
 		WideCharToMultiByte(CP_UTF8, 0, This->m_strInput.c_str(), -1, &str[0], sizeNeeded, NULL, NULL);
-		return str.c_str();
+		return str;
 	}
 	VOID InputBox::SetStrInput(LPCWSTR str)
 	{
@@ -175,6 +187,7 @@ namespace ugr
 		//This will be changed!!
 		if (c == 0x0D && this->m_flags == 1)
 		{
+			this->CleanStrFromJunk(this->m_strInput);
 			if (this->m_mapFunctionCallBack["OnSubmit"])
 				this->m_mapFunctionCallBack["OnSubmit"]();
 			this->m_bHasSumbited = TRUE;
@@ -182,6 +195,9 @@ namespace ugr
 		}
 		else if (c == 0x0D)
 		{
+			this->CleanStrFromJunk(this->m_strInput);
+			if (this->m_mapFunctionCallBack["OnSubmit"])
+				this->m_mapFunctionCallBack["OnSubmit"]();
 			this->m_bHasSumbited = TRUE;
 			this->m_bEnableInput = FALSE;
 			this->m_n8ColorBorder = 0x08;
@@ -228,5 +244,13 @@ namespace ugr
 	VOID InputBox::OnSumbit(const std::function<void(void)>& func)
 	{
 		This->m_mapFunctionCallBack.insert(std::make_pair<const char*, const std::function<void(void)>&>("OnSubmit", func));
+	}
+	VOID InputBox::OnFocus(const std::function<void(void)>& func)
+	{
+		This->m_mapFunctionCallBack.insert(std::make_pair<const char*, const std::function<void(void)>&>("OnFocus", func));
+	}
+	VOID InputBox::OnUnFocus(const std::function<void(void)>& func)
+	{
+		This->m_mapFunctionCallBack.insert(std::make_pair<const char*, const std::function<void(void)>&>("OnUnFocus", func));
 	}
 }

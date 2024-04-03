@@ -22,11 +22,10 @@
 // |  SOFTWARE.																		 |
 // O---------------------------------------------------------------------------------O
 
-
 #pragma once
-#include <RenderTarget.hpp>
 #include <EventProcessor.hpp>
 #include <functional>
+#include <string>
 
 namespace ugr
 {
@@ -76,7 +75,7 @@ namespace ugr
         /// Returns the input string as a narrow character string (LPCSTR).
         /// </summary>
         /// <returns>The input string as a narrow character string.</returns>
-        LPCSTR GetStrInput() const;
+        std::string GetStrInput();
 
         /// <summary>
         /// Sets the input string using a wide character string.
@@ -115,6 +114,8 @@ namespace ugr
         VOID SetTitle(LPCWSTR title, Color col);
 
         VOID OnSumbit(const std::function<void(void)>& func);
+        VOID OnFocus(const std::function<void(void)>& func);
+        VOID OnUnFocus(const std::function<void(void)>& func);
     private:
         /// <summary>
         /// Renders the input box without displaying it on the screen.
