@@ -351,10 +351,10 @@ namespace ugr
 	}
 	VOID RenderTarget::RenderSprite(Vector2i pos, Sprite* s)
 	{
-		for(int x = pos.x; x < s->GetSize().x; x++)
-			for (int y = pos.y; y < s->GetSize().y; y++)
+		for(int x = pos.x; x < s->GetSize().x + pos.x; x++)
+			for (int y = pos.y; y < s->GetSize().y + pos.y; y++)
 			{
-				CharPixel cp = s->GetPixel(x, y);
+				CharPixel cp = s->GetPixel(x - pos.x, y - pos.y);
 				this->SetPixel(Vector2i(x, y), cp.Char.UnicodeChar, cp.Color);
 			}
 	}
@@ -527,6 +527,10 @@ namespace ugr
 			y += 1;
 			if (y > y3) return;
 		}
+	}
+	VOID RenderTarget::RasterizeTriangle(VAO* tri, CharSurface c, Color color)
+	{
+		this->RasterizeTriangle(Vector2i(tri[0], tri[1]), Vector2i(tri[2], tri[3]), Vector2i(tri[4], tri[5]), c, color);
 	}
 	VOID RenderTarget::RasterizeCircle(Vector2i p1, INT r, CharSurface c, Color color, void(*VertexShader)(int& p, int& x, int& y))
 	{

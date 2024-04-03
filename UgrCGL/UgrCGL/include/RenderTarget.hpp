@@ -247,6 +247,8 @@ namespace ugr
 		/// <param name="color">Color of the fill (default: 0x0F, white on black).</param>
 		VOID RasterizeTriangle(Vector2i p1, Vector2i p2, Vector2i p3, CharSurface c = 0x2588, Color color = 0x0F);
 
+		VOID RasterizeTriangle(VAO* tri, CharSurface c = 0x2588, Color color = 0x0F);
+
 		/// <summary>
 		/// Rasterizes a filled circle using the specified center and radius.
 		/// </summary>
