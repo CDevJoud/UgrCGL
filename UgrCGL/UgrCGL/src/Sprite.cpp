@@ -51,6 +51,25 @@ namespace ugr
 		}
 		return FALSE;
 	}
+	BOOL Sprite::LoadSpriteFromFile(LPCSTR fileName)
+	{
+		if (!This->hFile)
+			This->hFile = CreateFileA(fileName, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+		if (This->hFile != INVALID_HANDLE_VALUE)
+		{
+			This->nFileSize = GetFileSize(This->hFile, NULL);
+			DWORD read = 0;
+
+			This->re.buffer = new CharPixel[This->nFileSize]{};
+			ReadFile(This->hFile, &This->sprheader, 12, &read, NULL);
+			ReadFile(This->hFile, This->re.buffer, This->nFileSize, &read, NULL);
+
+			This->re.screen.x = This->sprheader.x;
+			This->re.screen.y = This->sprheader.y;
+			return TRUE;
+		}
+		return FALSE;
+	}
 	VOID Sprite::LoadSpriteFromCanvas(Canvas* c)
 	{
 		if (!This)

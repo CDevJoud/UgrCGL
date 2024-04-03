@@ -15,6 +15,7 @@ namespace ugr
 		Sprite();
 		Sprite(LPCWSTR fileName);
 		BOOL LoadSpriteFromFile(LPCWSTR fileName);
+		BOOL LoadSpriteFromFile(LPCSTR fileName);
 		VOID LoadSpriteFromCanvas(Canvas* c);
 		VOID SaveSpriteToFile(LPCWSTR fileName);
 		CharPixel GetPixel(int x, int y) const;
