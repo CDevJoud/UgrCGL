@@ -45,6 +45,9 @@ namespace ugr
         SHORT m_PanelTitleColor;
 
         MenuBarProp m_MenuBarProp;
+
+        BOOL m_bIsCloseable;
+        BOOL m_bIsClosed;
     };
 
     VOID Panel::CreatePanel(Vector2i size)
@@ -57,6 +60,7 @@ namespace ugr
         this->m_pImpl->re.screen = size;
         this->m_pImpl->re.rect = { 0, 0, short(size.x), short(size.y) };
         this->m_pImpl->m_Paneltitle = L"";
+        this->m_pImpl->m_bIsClosed = false;
         this->InitRenderTarget(m_pImpl->re);
     }
 
@@ -207,7 +211,7 @@ namespace ugr
                 SetPixel(Vector2i(x, y), surface, color);
             }
 
-
+        
         this->SetUpFrame(pos, size, color);
         this->RenderText(Vector2i(pos.x + 2, pos.y - 1), title, titlecol);
     }
@@ -261,7 +265,7 @@ namespace ugr
             offsetX += lstrlenW(i.menuTitle) + 2;
 
             //Render the Menu
-            if (!i.RedirectMenuBox->IsHidden())
+            if (i.RedirectMenuBox->IsHidden())
             {
                 Vector2i offset(0, 1);
                 ShortRect rect;
@@ -297,13 +301,21 @@ namespace ugr
             {
                 if (EP->Mouse(EventProcessor::MouseType::Left).bStrokePressed)
                 {
-                    i.RedirectMenuBox->SetVisibility(false);
+                    i.RedirectMenuBox->SetVisibility(true);
+                }
+            }
+            else if (this->CheckInBoundaries(Vector2i(mousePos.x, mousePos.y - 1), { 0, 0, short(mSize.x), short(mSize.y) }) && i.RedirectMenuBox->IsHidden())
+            {
+                if(EP->Mouse(EventProcessor::MouseType::Left).bStrokePressed)
+                {
+                    i.RedirectMenuBox->SetMenuValueOnPressed(mousePos.y - 1);
+                    i.RedirectMenuBox->CallLambdaFunction("OnElementPressed");
                 }
             }
             //check for Mouse hovering on the menu
             else if (!(mousePos.x >= pos.x && mousePos.x < (pos.x + mSize.x) &&
                 mousePos.y >= pos.y + 1 && mousePos.y < (pos.y + mSize.y + 1)))
-                i.RedirectMenuBox->SetVisibility(true);
+                i.RedirectMenuBox->SetVisibility(false);
         }
     }
     VOID Panel::SetUpFrame(Vector2i pos, Vector2i size, Color color)
@@ -326,6 +338,28 @@ namespace ugr
 
         //Bottom
         SetPixel(pos + size, 0x256F, color);
+
+        
+    }
+
+    BOOL Panel::IsCloseable() const
+    {
+        return this->m_pImpl->m_bIsCloseable;
+    }
+
+    VOID Panel::SetCloseability(BOOL value)
+    {
+        this->m_pImpl->m_bIsCloseable = value;
+    }
+
+    VOID Panel::Close(BOOL value)
+    {
+        this->m_pImpl->m_bIsClosed = value;
+    }
+
+    BOOL Panel::IsClosed() const
+    {
+        return this->m_pImpl->m_bIsClosed;
     }
 
     /////////////////////PIMPLE GETTERS!/////////////////////

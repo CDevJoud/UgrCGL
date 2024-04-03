@@ -1,5 +1,4 @@
 #pragma once
-#include <RenderTarget.hpp>
 #include <Menu.hpp>
 #include <Button.hpp>
 #include <InputBox.hpp>
@@ -85,6 +84,11 @@ namespace ugr
         /// <param name="EP">The EventProcessor instance to use for event handling.</param>
         VOID ProcessEvents(EventProcessor* EP);
 
+        BOOL IsCloseable() const;
+        VOID SetCloseability(BOOL value);
+
+        VOID Close(BOOL value);
+        BOOL IsClosed() const;
     private:
         /// <summary>
         /// Sets up the panel frame with the specified position, size, and color.
