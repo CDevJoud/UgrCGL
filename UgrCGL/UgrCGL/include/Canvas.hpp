@@ -6,6 +6,7 @@ namespace ugr
 	class UGRCGL_API Canvas : public RenderTarget
 	{
 	public:
+		Canvas();
 		Canvas(Vector2i size);
 		VOID SetPosition(Vector2i pos);
 		Vector2i GetPosition() const;

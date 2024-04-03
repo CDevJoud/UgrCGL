@@ -2,6 +2,10 @@
 
 namespace ugr
 {
+	Canvas::Canvas()
+	{
+
+	}
 	Canvas::Canvas(Vector2i size)
 	{
 		re.rect = { 0, 0, short(size.x), (short)size.y };
