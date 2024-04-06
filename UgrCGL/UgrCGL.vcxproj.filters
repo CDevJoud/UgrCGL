@@ -48,6 +48,15 @@
     <ClInclude Include="UgrCGL\include\TextBox.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UgrCGL\include\Canvas.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UgrCGL\include\Sprite.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UgrCGL\src\ConsoleWindow.cpp">
@@ -74,10 +83,22 @@
     <ClCompile Include="UgrCGL\src\TextBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UgrCGL\src\Canvas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UgrCGL\src\Sprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="UgrCGL\include\doc_page\page.md" />
     <None Include="UgrCGL\include\doc_page\subsystem.md" />
     <None Include="UgrCGL\include\doc_page\RenderCircle_CoolShapes.md" />
+    <None Include="cpp.hint" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="UgrCGL.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
