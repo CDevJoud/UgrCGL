@@ -158,7 +158,6 @@ namespace ugr
             
             //this->Display();
         }
-        this->Display();
     }
     VOID ConsoleWindow::ProcessFPS()
     {
