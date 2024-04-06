@@ -26,6 +26,7 @@
 #include <EventProcessor.hpp>
 #include <functional>
 #include <string>
+#include <RenderTarget.hpp>
 
 namespace ugr
 {
