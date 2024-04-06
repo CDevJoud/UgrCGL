@@ -1,0 +1,10 @@
+{
+	"Sprites": {
+		"Test": {
+			"File": "Test.uspr"
+		},
+		"LOL": {
+			"File": "Lol.uspr"
+		}
+	}
+}
